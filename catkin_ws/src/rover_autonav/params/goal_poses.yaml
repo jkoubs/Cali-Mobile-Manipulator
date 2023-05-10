@@ -1,0 +1,34 @@
+grasp_position:
+  position: 
+    x: 1.70246750944
+    y: 11.2478988671
+    z: 0.0
+  orientation: 
+    x: 0.0
+    y: 0.0
+    z: 0.70445502908
+    w: 0.709748625926
+
+
+release_position:
+  position: 
+    x: -2.1248
+    y: -2.6404
+    z: 0.0
+  orientation: 
+    x: 0.0
+    y: 0.0
+    z: -0.703420461414
+    w: 0.710773982687
+
+
+approach:
+  position: 
+    x: 1.68430342457
+    y: 11.0038929891
+    z: 0.0
+  orientation: 
+    x: 0.0
+    y: 0.0
+    z: 0.713439579525
+    w: 0.700716751881

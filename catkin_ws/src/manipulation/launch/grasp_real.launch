@@ -1,0 +1,11 @@
+<launch>
+
+  
+    <node pkg ="manipulation"
+        type="grasp_real.py"
+        name="grasp_can"
+        output="screen">
+    </node>
+  
+  
+</launch>

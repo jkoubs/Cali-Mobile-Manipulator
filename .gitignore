@@ -1,0 +1,15 @@
+build/
+devel/
+__pycache__/
+*.pyc
+.vscode
+.mypy_cache/
+arduino_codes/
+gazebo-pkgs/
+general-message-pkgs/
+roboticsgroup_gazebo_plugins/
+roboticsgroup_upatras_gazebo_plugins/
+ros-melodic-rqt-joint-trajectory-controller/
+teb_local_planner_tutorials/
+teleop_twist_keyboard-master/
+ros_control_boilerplate/

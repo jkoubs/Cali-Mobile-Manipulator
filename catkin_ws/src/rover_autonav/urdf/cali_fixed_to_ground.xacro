@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro"
+       name="ur3e" >
+
+  <!-- ARM -->
+  <xacro:include filename="$(find manipulation)/scorbot_description/urdf/arm_fixed_to_ground.xacro" />
+
+
+  <!-- Here we create the Xacro macro to attach the Gripper to the arm_link-->
+  <xacro:scorbot prefix="scorbot" parent="world">
+    <origin xyz="0.0 0 0.0" rpy="0 0 0" />
+  </xacro:scorbot>
+</robot>
