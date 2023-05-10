@@ -3,6 +3,7 @@ devel/
 __pycache__/
 *.pyc
 .vscode
+.catkin_workspace
 .mypy_cache/
 arduino_codes/
 gazebo-pkgs/
