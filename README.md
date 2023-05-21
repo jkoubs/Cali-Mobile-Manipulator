@@ -10,7 +10,7 @@ How to edit markdown files - https://www.markdownguide.org/cheat-sheet
    - [Autonomous Navigation](#autonomous-navigation)
    - [Manipulation Pipeline](#manipulation-pipeline)
    - [Perception Pipeline](#perception-pipeline)
-   - [Mission Planner](#mission-planner)
+   - [Fecth-and-Carry Mission](#fecth-and-carry-mission)
  - [Real Robot](#real-robot)
  - [Docker](#docker)
 
@@ -149,7 +149,7 @@ roslaunch rover_autonav navigation_teb.launch
   Close all previous shells and open a <strong>new</strong> terminal (<em>shell#1</em>):
 
   ```bash
-  roslaunch rover_autonav arm_fixed_to_ground.launch 
+  roslaunch manipulation arm_fixed_to_ground.launch 
   ```
 
   Then play with the <em><strong>rqt_joint_trajectory_controller</strong></em> GUI.
@@ -161,23 +161,23 @@ roslaunch rover_autonav navigation_teb.launch
   Now, open a <strong>second</strong> terminal (<em>shell#2</em>):
 
   ```
-  rostopic pub /gripper_controller/gripper_cmd/goal control_msgs/GripperCommandActionGoal "header:
-    seq: 0
-    stamp:
-      secs: 0
-      nsecs: 0
-    frame_id: ''
-  goal_id:
-    stamp:
-      secs: 0
-      nsecs: 0
-    id: ''
-  goal:
-    command:
-      position: 2.0
-      max_effort: 0.0"
+ rostopic pub /gripper_controller/gripper_cmd/goal control_msgs/GripperCommandActionGoal "header:
+  seq: 0
+  stamp:
+    secs: 0
+    nsecs: 0
+  frame_id: ''
+goal_id:
+  stamp:
+    secs: 0
+    nsecs: 0
+  id: ''
+goal:
+  command:
+    position: 2.0
+    max_effort: 0.0" 
   ```
-  Set a position of <em>2.0</em> to open the gripper and <em>-2.0</em> to close it.
+  Set a position of <em>2.0</em> to open the gripper and <em>0.0</em> to close it.
   
   ![open_close_gripper](doc/open_close_gripper.gif)
 
@@ -226,7 +226,7 @@ Close all previous terminals, and open 3 new terminals (<em>shell#1, shell#2 and
   ```bash
 roslaunch rover_autonav cali.launch
 roslaunch cali_project_moveit_config cali_planning_execution.launch
-roslaunch perception surface_detection_simple.launch
+roslaunch perception surface_detection.launch
 ```
 
 ![perception](doc/perception.gif)
