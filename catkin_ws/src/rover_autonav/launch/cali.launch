@@ -4,7 +4,7 @@
     <!-- Testing Perception World-->
     <arg name="world_name" default="$(find rover_autonav)/world/test_perception_coke_can.world"/>
 
-    <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find rover_autonav)/urdf/cali_urdf_complete_v3.xacro'" />
+    <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find rover_autonav)/description/urdf/cali.xacro'" />
 
     <!-- Combine joint values -->
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn= "false" output="screen">
@@ -48,9 +48,6 @@
             <arg name="verbose" value="true"/>
     </include>
 
-    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find rover_autonav)/rviz_config/arm_fixed_to_ground.rviz" />
-
-
-
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find rover_autonav)/rviz_config/cali.rviz" />
 
 </launch>
