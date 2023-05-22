@@ -1,6 +1,6 @@
 <?xml version='1.0'?>
 <sdf version='1.6'>
-  <model name='ecst_lab_v2'>
+  <model name='ecst_lab'>
     <pose frame=''>-1.55143 -0.05601 0 0 -0 0</pose>
     <link name='Wall_1'>
       <collision name='Wall_1_Collision'>

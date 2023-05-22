@@ -10,7 +10,7 @@ How to edit markdown files - https://www.markdownguide.org/cheat-sheet
    - [Autonomous Navigation](#autonomous-navigation)
    - [Manipulation Pipeline](#manipulation-pipeline)
    - [Perception Pipeline](#perception-pipeline)
-   - [Fecth-and-Carry Mission](#fecth-and-carry-mission)
+   - [Fetch-and-Carry Mission](#fetch-and-carry-mission)
  - [Real Robot](#real-robot)
  - [Docker](#docker)
 
@@ -272,7 +272,7 @@ We can see that it is now able to grasp the object using our <strong>Perception/
 
 
 
-## Fecth-and-Carry Mission
+## Fetch-and-Carry Mission
 The goal of this mission is to perform a Fetch-and-Carry task in an indoor environment. It consists of picking a coke can from a room A and dump it into trash can located in room B.
 
 Close all previous shells:

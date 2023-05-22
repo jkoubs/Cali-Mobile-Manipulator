@@ -85,7 +85,7 @@
       <elevation>0</elevation>
       <heading_deg>0</heading_deg>
     </spherical_coordinates>
-    <model name='ecst_lab_v2'>
+    <model name='ecst_lab'>
       <pose frame=''>0.864182 -2.29081 0 0 -0 0</pose>
       <link name='Wall_1'>
         <collision name='Wall_1_Collision'>
@@ -7719,7 +7719,7 @@
           <wrench>-0.02256 -0.042909 0.000854 0 -0 0</wrench>
         </link>
       </model>
-      <model name='ecst_lab_v2'>
+      <model name='ecst_lab'>
         <pose frame=''>2.38151 7.60499 -4e-06 -3e-06 3e-06 -1.57079</pose>
         <scale>1 1 1</scale>
         <link name='Wall_1'>
@@ -8539,7 +8539,7 @@
           <wrench>-0 -1e-06 -9.62398 0 -0 0</wrench>
         </link>
       </model>
-      <model name='ecst_table_v5'>
+      <model name='ecst_table'>
         <pose frame=''>3.08887 10.975 0.277013 0 -1.2e-05 -0.003042</pose>
         <scale>1 1 1</scale>
         <link name='link_1'>
@@ -8580,7 +8580,7 @@
         <projection_type>perspective</projection_type>
       </camera>
     </gui>
-    <model name='ecst_table_v5'>
+    <model name='ecst_table'>
       <static>1</static>
       <link name='link_1'>
         <inertial>
@@ -8604,8 +8604,7 @@
           <pose frame=''>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <!-- <uri>/home/jason/catkin_ws/src/rover_autonav/meshes/CALI_TABLE_MODEL_METERS_2_updated.stl</uri> -->
-              <uri>model://ecst_table/CALI_TABLE_MODEL_METERS_2_updated.stl</uri>
+              <uri>model://ecst_table/ecst_table.stl</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>
