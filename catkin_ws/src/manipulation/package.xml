@@ -2,12 +2,12 @@
 <package format="2">
   <name>manipulation</name>
   <version>0.0.0</version>
-  <description>The manipulation package</description>
+  <description>This package is related to the arm of Cali</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag -->
   <!-- Example:  -->
   <!-- <maintainer email="jane.doe@example.com">Jane Doe</maintainer> -->
-  <maintainer email="jason@todo.todo">jason</maintainer>
+  <maintainer email="jazkoubi@gmail.com">Jason Koubi</maintainer>
 
 
   <!-- One license tag required, multiple allowed, one license per tag -->

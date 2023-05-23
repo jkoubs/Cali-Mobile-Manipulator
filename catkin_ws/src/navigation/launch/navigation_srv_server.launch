@@ -1,0 +1,13 @@
+<launch>
+
+    <!--First we load the parameters to we have set for the goal poses-->
+    <rosparam command="load" file="$(find navigation)/config/goal_poses.yaml" />
+
+    <node pkg ="navigation"
+        type="navigation_srv_server.py"
+        name="go_to_point_of_interest"
+        output="screen">
+    </node>
+  
+  
+</launch>

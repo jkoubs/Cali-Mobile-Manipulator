@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro"
+       name="ur3e" >
+
+  <!-- MOBILE ROBOT -->
+  <xacro:include filename="$(find navigation)/description/urdf/cali_base.xacro" />
+  
+  <!-- ARM -->
+  <xacro:include filename="$(find manipulation)/description/urdf/arm.xacro" />
+
+  <!-- Here we create the Xacro macro to attach the Gripper to the arm_link-->
+  <!-- <xacro:scorbot prefix="scorbot" parent="arm_link"> -->
+  <xacro:scorbot prefix="scorbot" parent="robot_footprint">    
+
+    <origin xyz="0.27 0 0.359" rpy="0 0 0" />
+
+  </xacro:scorbot>
+</robot>

@@ -1,7 +1,7 @@
 moveit_setup_assistant_config:
   URDF:
-    package: rover_autonav
-    relative_path: urdf/cali_urdf_complete_v3.xacro
+    package: navigation
+    relative_path: description/urdf/cali.xacro
     xacro_args: ""
   SRDF:
     relative_path: config/ur3e.srdf

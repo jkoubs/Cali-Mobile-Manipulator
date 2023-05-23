@@ -6,6 +6,7 @@ __pycache__/
 .catkin_workspace
 .mypy_cache/
 arduino_codes/
+cali_control/
 gazebo-pkgs/
 general-message-pkgs/
 roboticsgroup_gazebo_plugins/
@@ -14,3 +15,8 @@ ros-melodic-rqt-joint-trajectory-controller/
 teb_local_planner_tutorials/
 teleop_twist_keyboard-master/
 ros_control_boilerplate/
+get_objects_position.py
+get_data.py
+inertia_calculator.py
+navigation_local_pc.py
+catkin_ws/src/CMakeLists.txt
