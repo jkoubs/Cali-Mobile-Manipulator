@@ -10,7 +10,7 @@ How to edit markdown files - https://www.markdownguide.org/cheat-sheet
    - [Autonomous Navigation](#autonomous-navigation)
    - [Manipulation Pipeline](#manipulation-pipeline)
    - [Perception Pipeline](#perception-pipeline)
-   - [Fecth-and-Carry Mission](#fecth-and-carry-mission)
+   - [Fetch-and-Carry Mission](#fetch-and-carry-mission)
  - [Real Robot](#real-robot)
  - [Docker](#docker)
 
@@ -24,7 +24,7 @@ How to edit markdown files - https://www.markdownguide.org/cheat-sheet
 
 
 # Packages
-## rover_autonav
+## navigation
 Launch Autonomous Navigation
 
 ## manipulation
@@ -87,11 +87,11 @@ range control of the robot up to 3.2km away from the base station.
 
   Open a <strong>new</strong> terminal and spawn the robot in Gazebo (<em>shell#1</em>):
   ```bash
-roslaunch rover_autonav cali_ecst_lab.launch
+roslaunch navigation cali_ecst_lab.launch
 ```
   In a <strong>second</strong> terminal, launch the <em><strong>slam_gmapping</strong></em> node (<em>shell#2</em>):
   ```bash
-roslaunch rover_autonav slam_gmapping.launch
+roslaunch navigation slam_gmapping.launch
 ```
 
   Now, we will move the robot around using <em>teleop</em> to create our map. In a <strong>third</strong> terminal (<em>shell#3</em>):
@@ -102,7 +102,7 @@ rosrun teleop_twist_keyboard teleop_twist_keyboard.py
 
   Finally, we will save our new map and call it <em>ecst_lab_map</em>. In a <strong>fourth</strong> terminal (<em>shell#4</em>):
   ```bash
-cd ~/catkin_ws/src/rover_autonav/maps
+cd ~/catkin_ws/src/navigation/maps
 rosrun map_server map_saver -f ecst_lab_map
 ```
   ![map](doc/map.png)
@@ -111,12 +111,12 @@ rosrun map_server map_saver -f ecst_lab_map
   Close all previous shells. Open a <strong>new</strong> terminal and spawn the robot in Gazebo (<em>shell#1</em>):
 
   ```bash
-roslaunch rover_autonav cali_ecst_lab.launch
+roslaunch navigation cali_ecst_lab.launch
 ```
   In a <strong>second</strong> terminal, launch the <em><strong>localization</strong></em> node (<em>shell#2</em>):
 
   ```bash
-roslaunch rover_autonav localization_ecst_lab.launch
+roslaunch navigation localization_ecst_lab.launch
 ```
 
   Once launched, need to set a <em><strong>2D Pose Estimate</strong></em> using Rviz. We can launch the teleoperation to move the robot around, we can see that this increases the localization estimate.
@@ -125,12 +125,12 @@ roslaunch rover_autonav localization_ecst_lab.launch
   Close all previous shells. Open a <strong>new</strong> terminal and spawn the robot in Gazebo (<em>shell#1</em>):
 
   ```bash
-roslaunch rover_autonav cali_ecst_lab.launch
+roslaunch navigation cali_ecst_lab.launch
 ```
   In a <strong>second</strong> terminal, launch the <em><strong>Autonomous Navigation</strong></em> node (<em>shell#2</em>):
 
   ```bash
-roslaunch rover_autonav navigation_teb.launch
+roslaunch navigation navigation_teb.launch
 ```
 
   Then in RViz we just need to select a goal pose using the <em><strong>2D Nav Goal</strong></em> tool:
@@ -185,7 +185,7 @@ goal:
 
   Close all previous terminals, then open a <strong>new</strong> terminal (<em>shell#1</em>):
   ```bash
-  roslaunch rover_autonav cali.launch
+  roslaunch navigation cali.launch
   ```
   In a <strong>second</strong> terminal (<em>shell#2</em>):
   ```bash
@@ -224,7 +224,7 @@ Thus, we have created a perception pose in Moveit for that matter.
 
 Close all previous terminals, and open 3 new terminals (<em>shell#1, shell#2 and shell#3</em>):
   ```bash
-roslaunch rover_autonav cali.launch
+roslaunch navigation cali.launch
 roslaunch cali_project_moveit_config cali_planning_execution.launch
 roslaunch perception surface_detection.launch
 ```
@@ -272,7 +272,7 @@ We can see that it is now able to grasp the object using our <strong>Perception/
 
 
 
-## Fecth-and-Carry Mission
+## Fetch-and-Carry Mission
 The goal of this mission is to perform a Fetch-and-Carry task in an indoor environment. It consists of picking a coke can from a room A and dump it into trash can located in room B.
 
 Close all previous shells:
@@ -282,7 +282,7 @@ First, we source the workspace and then <strong>spawn</strong> the robot in Gaze
 ```bash
 cd ~/catkin_ws
 source devel/setup.bash
-roslaunch rover_autonav cali_ecst_lab.launch
+roslaunch navigation cali_ecst_lab.launch
 ```
 
 Launch <strong>Moveit</strong> (<em>shell#2</em>):
@@ -300,12 +300,12 @@ roslaunch manipulation camera_alignment.launch
 Launch <strong>Navigation</strong> node (<em>shell#3</em>):
 
 ```bash
-roslaunch rover_autonav navigation_teb.launch
+roslaunch navigation navigation_teb.launch
 ```
 Launch Navigation <strong>Service Server</strong> where we can choose among different goal poses (<em>shell#4</em>):
 
 ```bash
-roslaunch rover_autonav navigation_srv_server.launch
+roslaunch navigation navigation_srv_server.launch
 ```
 Call the <strong>Service</strong> to go to towards the coke can (<em>shell#5</em>):
 
@@ -397,7 +397,7 @@ Launch the <strong>TF</strong> node  (<em>shell#5</em>) :
 ```bash
 cd ~/project_cali
 source devel/setup.bash 
-roslaunch rover_autonav cali_ecst_lab.launch 
+roslaunch navigation cali_ecst_lab.launch 
 ```
 
 Launch the <strong>odometry</strong> node  (<em>shell#6</em>) :
@@ -416,7 +416,7 @@ Launch the <strong>Mapping</strong> node  (<em>shell#7</em>) :
 ```bash
 cd ~/project_cali
 source devel/setup.bash 
-roslaunch rover_autonav slam_gmapping.launch 
+roslaunch navigation slam_gmapping.launch 
 ```
 
 ### Localization
@@ -426,7 +426,7 @@ Close previous shell and launch the <strong>Localization</strong> node (<em>shel
 ```bash
 cd ~/project_cali
 source devel/setup.bash 
-roslaunch rover_autonav localization_ecst_lab.launch 
+roslaunch navigation localization_ecst_lab.launch 
 ```
 
 ### Autonomous Navigation
@@ -437,7 +437,7 @@ Close previous shell and launch the <strong>Autonomous Navigation</strong> node 
 ```bash
 cd ~/project_cali
 source devel/setup.bash 
-roslaunch rover_autonav navigation_teb.launch 
+roslaunch navigation navigation_teb.launch 
  ```
 
 ![AN_real](doc/AN_real.gif)

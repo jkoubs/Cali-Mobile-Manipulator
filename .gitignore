@@ -15,3 +15,6 @@ teb_local_planner_tutorials/
 teleop_twist_keyboard-master/
 ros_control_boilerplate/
 get_objects_position.py
+get_data.py
+inertia_calculator.py
+navigation_local_pc.py

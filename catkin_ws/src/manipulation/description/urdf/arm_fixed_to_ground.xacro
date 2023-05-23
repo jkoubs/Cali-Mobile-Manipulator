@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro"
+       name="ur3e" >
+
+  <!-- ARM -->
+  <xacro:include filename="$(find manipulation)/description/urdf/arm_world_frame.xacro" />
+
+
+  <!-- Here we create the Xacro macro to attach the arm to the world frame-->
+  <xacro:scorbot prefix="scorbot" parent="world">
+    <origin xyz="0.0 0 0.0" rpy="0 0 0" />
+  </xacro:scorbot>
+</robot>
