@@ -47,7 +47,7 @@
 		<visual name="chassis_visual">
 			<origin xyz="0 0 0.3429" rpy=" 0 0 ${half_pi}"/>
 			<geometry>
-				<mesh filename="package://rover_autonav/description/meshes/base_link_armless.STL" />
+				<mesh filename="package://navigation/description/meshes/base_link_armless.STL" />
 				<!-- <box size="${robot_chassis_length} ${robot_chassis_width} ${robot_chassis_height}"/> -->
 			</geometry>
 
@@ -72,7 +72,7 @@
 		<visual>
 			<origin xyz="0 0 0" rpy="1.5707 0.0 -1.5707"/>
 			<geometry>
-				<mesh filename="package://rover_autonav/description/meshes/wheel.STL" />
+				<mesh filename="package://navigation/description/meshes/wheel.STL" />
 				<!-- <cylinder radius="${robot_wheel_radius}" length="${robot_wheel_length}"/> -->
 			</geometry>
 		</visual>
@@ -101,7 +101,7 @@
 		<visual>
 			<origin xyz="0 0 0" rpy="1.5707 0.0 -1.5707"/>
 			<geometry>
-				<mesh filename="package://rover_autonav/description/meshes/wheel.STL" />
+				<mesh filename="package://navigation/description/meshes/wheel.STL" />
 				<!-- <cylinder radius="${robot_wheel_radius}" length="${robot_wheel_length}"/> -->
 			</geometry>
 		</visual>
@@ -132,7 +132,7 @@
 		<visual>
 			<origin xyz="0 0 0" rpy="1.5707 0.0 -1.5707"/>
 			<geometry>
-				<mesh filename="package://rover_autonav/description/meshes/wheel.STL" />
+				<mesh filename="package://navigation/description/meshes/wheel.STL" />
 				<!-- <cylinder radius="${robot_wheel_radius}" length="${robot_wheel_length}"/> -->
 			</geometry>
 		</visual>
@@ -162,7 +162,7 @@
 		<visual>
 			<origin xyz="0 0 0" rpy="1.5707 0.0 -1.5707"/>
 			<geometry>
-				<mesh filename="package://rover_autonav/description/meshes/wheel.STL" />
+				<mesh filename="package://navigation/description/meshes/wheel.STL" />
 				<!-- <cylinder radius="${robot_wheel_radius}" length="${robot_wheel_length}"/> -->
 			</geometry>
 		</visual>
@@ -222,7 +222,7 @@
 		<visual>
 			<origin xyz="0 0 0" rpy="0 0 0"/>
 			<geometry>
-				<mesh filename="package://rover_autonav/description/meshes/hokuyo.dae"/>
+				<mesh filename="package://navigation/description/meshes/hokuyo.dae"/>
 			</geometry>
 		</visual>
 
@@ -374,6 +374,6 @@
 	</gazebo>
 
 	<!-- Motor, Camera and Lidar Simulation -->
-	<xacro:include filename="$(find rover_autonav)/description/urdf/cali_base.gazebo" />
+	<xacro:include filename="$(find navigation)/description/urdf/cali_base.gazebo" />
 
 </robot>

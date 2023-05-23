@@ -8604,7 +8604,7 @@
           <pose frame=''>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>model://ecst_table/ecst_table.stl</uri>
+              <uri>model://ecst_table/meshes/ecst_table.stl</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>
@@ -8765,8 +8765,7 @@
           <pose frame=''>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <!-- <uri>/home/jason/catkin_ws/src/rover_autonav/meshes/trash_can.stl</uri> -->
-              <uri>model://trash_can/trash_can.stl</uri>
+              <uri>model://trash_can/meshes/trash_can.stl</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>
@@ -8789,8 +8788,7 @@
           <pose frame=''>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <!-- <uri>/home/jason/catkin_ws/src/rover_autonav/meshes/trash_can.stl</uri> -->
-              <uri>model://trash_can/trash_can.stl</uri>
+              <uri>model://trash_can/meshes/trash_can.stl</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>

@@ -1,24 +1,24 @@
 <?xml version="1.0" ?>
-<sdf version="1.4">
-  <model name="coke_can">
+<sdf version="1.5">
+  <model name="ecst_table">
     <link name="link">
       <inertial>
-        <pose>0 0 0.06 0 0 0</pose>
-        <mass>0.390</mass>
+        <pose>0 0 0.0 0 0 0</pose>
+        <mass>5.0</mass>
         <inertia>
-          <ixx>0.00055575</ixx>
+          <ixx>0.18620833333333336</ixx>
           <ixy>0</ixy>
           <ixz>0</ixz>
-          <iyy>0.00055575</iyy>
+          <iyy>0.4635416666666667</iyy>
           <iyz>0</iyz>
-          <izz>0.0001755</izz>
+          <izz>0.39766666666666667</izz>
         </inertia>
       </inertial>
       <collision name="collision">
-        <pose>0.003937 0.0047244 -0.18 0 0 0</pose>
+        <pose>0.0 0.0 0.0 0 0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://coke_can/meshes/coke_can.dae</uri>
+            <uri>model://ecst_table/meshes/ecst_table.stl</uri>
           </mesh>
         </geometry>
         <surface>
@@ -39,10 +39,10 @@
         </surface>
       </collision>
       <visual name="visual">
-        <pose>0.003937 0.0047244 -0.18 0 0 0</pose>
+        <pose>0. 0.0 0 0 0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://coke_can/meshes/coke_can.dae</uri>
+            <uri>model://ecst_table/meshes/ecst_table.stl</uri>
           </mesh>
         </geometry>
       </visual>

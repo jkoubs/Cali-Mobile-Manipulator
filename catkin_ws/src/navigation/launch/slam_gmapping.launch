@@ -42,6 +42,6 @@
   </node>
 
   <!-- Launch RViz-->
-  <node pkg="rviz" type="rviz" name="rviz_mapping" args="-d $(find rover_autonav)/rviz_config/mapping.rviz" />
+  <node pkg="rviz" type="rviz" name="rviz_mapping" args="-d $(find navigation)/rviz_config/mapping.rviz" />
 
 </launch>

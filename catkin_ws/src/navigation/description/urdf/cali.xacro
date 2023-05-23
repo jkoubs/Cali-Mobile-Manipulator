@@ -3,7 +3,7 @@
        name="ur3e" >
 
   <!-- MOBILE ROBOT -->
-  <xacro:include filename="$(find rover_autonav)/description/urdf/cali_base.xacro" />
+  <xacro:include filename="$(find navigation)/description/urdf/cali_base.xacro" />
   
   <!-- ARM -->
   <xacro:include filename="$(find manipulation)/description/urdf/arm.xacro" />

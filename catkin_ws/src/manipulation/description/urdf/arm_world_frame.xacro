@@ -399,7 +399,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://rover_autonav/meshes/d435.dae"/>
+          <mesh filename="package://navigation/description/meshes/d435.dae"/>
         </geometry>
       </visual>
       <collision>

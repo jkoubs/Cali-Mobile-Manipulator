@@ -2,9 +2,9 @@
 <launch>
  
     <!-- Testing Perception World-->
-    <arg name="world_name" default="$(find rover_autonav)/world/cafe_table.world"/>
+    <arg name="world_name" default="$(find navigation)/world/cafe_table.world"/>
 
-    <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find rover_autonav)/description/urdf/cali.xacro'" />
+    <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find navigation)/description/urdf/cali.xacro'" />
 
     <!-- Combine joint values -->
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn= "false" output="screen">
@@ -16,7 +16,7 @@
 
     <!-- Spawn model -->
     <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" output="screen"
-          args="-urdf -param robot_description -model rover_autonav -x $(arg x) -y $(arg y) -z $(arg z)" />
+          args="-urdf -param robot_description -model navigation -x $(arg x) -y $(arg y) -z $(arg z)" />
 
     <!-- JOINT STATE CONTROLLER -->
     <rosparam file="$(find manipulation)/config/joint_state_controller.yaml" command="load"/>
@@ -48,6 +48,6 @@
             <arg name="verbose" value="true"/>
     </include>
 
-    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find rover_autonav)/rviz_config/cali.rviz" />
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/cali.rviz" />
 
 </launch>

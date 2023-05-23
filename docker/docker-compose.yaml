@@ -32,4 +32,4 @@ services:
 
           # sleep infinity
           # terminator
-          # roslaunch rover_autonav cali_ecst_lab.launch --screen
+          # roslaunch navigation cali_ecst_lab.launch --screen
