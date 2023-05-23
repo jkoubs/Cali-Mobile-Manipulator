@@ -23,23 +23,24 @@
 
 
 # Packages
-## navigation
-Launch Autonomous Navigation
-
-## manipulation
-Contains manipulator URDF and configuration files for the arm
 
 ## cali_project_moveit_config
-Contains Moveit configuration files
+Contains Moveit configuration files to be used for manipualtion.
+
+## manipulation
+Package related to the manipulation pipeline of Cali.
+
+## navigation
+Package related to the autonomous navigation pipeline of Cali.
 
 ## perception
-Contains Perception Pipeline
+Package related to the perception pieline of Cali.
 
-## arduino_codes
-Contains the control codes
+## real_robot
+Package related to the transfer into the real robot.
 
-## docker
-Contains the docker images related to this project
+## surface_perception
+Package related to the perception algorithm that we use to perform object detection. This algorithm will be able to detect objects located on top of surfaces.
 
 # Installation instructions
 The software is based on ROS-Melodic on a Ubuntu 18.04 laptop. 
