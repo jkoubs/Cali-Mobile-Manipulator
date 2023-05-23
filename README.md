@@ -1,5 +1,4 @@
 # Ground Robot "Cali" (version 2021-22), Robotics Laboratory, California State University, Los Angeles
-How to edit markdown files - https://www.markdownguide.org/cheat-sheet
 
 # Table of Contents
  - [About](#about)
@@ -39,7 +38,7 @@ Contains Perception Pipeline
 ## arduino_codes
 Contains the control codes
 
-## docker_ros
+## docker
 Contains the docker images related to this project
 
 # Installation instructions

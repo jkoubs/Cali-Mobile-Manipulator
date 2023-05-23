@@ -6,6 +6,7 @@ __pycache__/
 .catkin_workspace
 .mypy_cache/
 arduino_codes/
+cali_control/
 gazebo-pkgs/
 general-message-pkgs/
 roboticsgroup_gazebo_plugins/
