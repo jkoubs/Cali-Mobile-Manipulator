@@ -19,3 +19,4 @@ get_objects_position.py
 get_data.py
 inertia_calculator.py
 navigation_local_pc.py
+src/CMakeLists.txt
