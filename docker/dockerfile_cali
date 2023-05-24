@@ -3,23 +3,20 @@ FROM ros_melodic:latest
 # Change the default shell to Bash
 SHELL [ "/bin/bash" , "-c" ]
 
-# Install Git
+# Install pkgs
 RUN apt-get update && apt-get install -y git && apt-get install -y build-essential terminator ros-melodic-object-recognition-msgs ros-melodic-move-base-msgs ros-melodic-rqt-joint-trajectory-controller ros-melodic-scaled-joint-trajectory-controller ros-melodic-gripper-action-controller ros-melodic-map-server ros-melodic-move-base ros-melodic-amcl ros-melodic-teb-local-planner ros-melodic-moveit
  
 
 
 # Create a Catkin workspace and clone catkin_ws repo
 RUN source /opt/ros/melodic/setup.bash \
- && mkdir -p /catkin_ws/src \
- && cd /catkin_ws/src \
- && catkin_init_workspace \
- && git clone -b master https://github.com/jkoubs/project_cali.git 
+ && git clone https://github.com/jkoubs/Cali-Mobile-Manipulator.git
 
 # Build the Catkin workspace and ensure it's sourced
 RUN source /opt/ros/melodic/setup.bash \
- && cd catkin_ws \
+ && cd Cali-Mobile-Manipulator/catkin_ws/ \
  && catkin_make
-RUN echo "source /catkin_ws/devel/setup.bash" >> ~/.bashrc
+RUN echo "source /Cali-Mobile-Manipulator/catkin_ws/devel/setup.bash" >> ~/.bashrc
 
 # Set the working folder at startup
-WORKDIR /catkin_ws
+WORKDIR /Cali-Mobile-Manipulator/catkin_ws

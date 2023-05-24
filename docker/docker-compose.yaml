@@ -16,6 +16,7 @@ services:
       # things will be written at /tmp/.X11-unix/X0
       # ---------------------------------------------------------------------
       - /tmp/.X11-unix:/tmp/.X11-unix
+      # - $CALI_PATH/catkin_ws/src:/catkin_ws/src:rw
     environment:
       - DISPLAY # Forward the DISPLAY variable of the host to the container
       - QT_X11_NO_MITSHM=1 # Taken from https://answers.ros.org/question/391195/using-rviz-in-docker/?answer=391504#post-id-391504
@@ -26,10 +27,6 @@ services:
       - -c
       - |
           source /opt/ros/melodic/setup.bash
-          source /catkin_ws/devel/setup.bash
+          source /Cali-Mobile-Manipulator/catkin_ws/devel/setup.bash
           source /usr/share/gazebo/setup.sh
           terminator -u --title="Docker Container"
-
-          # sleep infinity
-          # terminator
-          # roslaunch navigation cali_ecst_lab.launch --screen

@@ -46,11 +46,10 @@ Package related to the perception algorithm that we use to perform object detect
 The software is based on ROS-Melodic on a Ubuntu 18.04 laptop. 
 
 Open up a terminal on your linux machine and execute following:
+
 ```bash
-mkdir -p ~/catkin_ws/src
-cd ~/catkin_ws/src
-git clone https://github.com/jkoubs/project_cali.git 
-cd ~/catkin_ws/
+git clone https://github.com/jkoubs/Cali-Mobile-Manipulator.git
+cd Cali-Mobile-Manipulator/catkin_ws/
 catkin_make
 source devel/setup.bash
 ```
@@ -280,7 +279,7 @@ Close all previous shells:
 First, we source the workspace and then <strong>spawn</strong> the robot in Gazebo (<em>shell#1</em>):
 
 ```bash
-cd ~/catkin_ws
+cd Cali-Mobile-Manipulator/catkin_ws
 source devel/setup.bash
 roslaunch navigation spawn_cali_ecst_lab.launch
 ```
@@ -484,7 +483,7 @@ To get the full ROS code we will create <strong>two images</strong>. We will app
 We build the 1st image named <strong>ros_melodic</strong> using the <strong>dockerfile_ros_melodic</strong> Dockerfile which uses the ROS Melodic distribution as a base.
 
 ```bash
-cd ~/catkin_ws/src/docker_ros
+cd ~/Cali-Mobile-Manipulator/docker
 sudo docker build -f dockerfile_ros_melodic -t ros_melodic .
 ```
 
