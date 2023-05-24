@@ -87,7 +87,7 @@ range control of the robot up to 3.2km away from the base station.
 
   Open a <strong>new</strong> terminal and spawn the robot in Gazebo (<em>shell#1</em>):
   ```bash
-roslaunch navigation cali_ecst_lab.launch
+roslaunch navigation spawn_cali_ecst_lab.launch
 ```
   In a <strong>second</strong> terminal, launch the <em><strong>slam_gmapping</strong></em> node (<em>shell#2</em>):
   ```bash
@@ -111,12 +111,12 @@ rosrun map_server map_saver -f ecst_lab_map
   Close all previous shells. Open a <strong>new</strong> terminal and spawn the robot in Gazebo (<em>shell#1</em>):
 
   ```bash
-roslaunch navigation cali_ecst_lab.launch
+roslaunch navigation spawn_cali_ecst_lab.launch
 ```
   In a <strong>second</strong> terminal, launch the <em><strong>localization</strong></em> node (<em>shell#2</em>):
 
   ```bash
-roslaunch navigation localization_ecst_lab.launch
+roslaunch navigation localization.launch
 ```
 
   Once launched, need to set a <em><strong>2D Pose Estimate</strong></em> using Rviz. We can launch the teleoperation to move the robot around, we can see that this increases the localization estimate.
@@ -125,7 +125,7 @@ roslaunch navigation localization_ecst_lab.launch
   Close all previous shells. Open a <strong>new</strong> terminal and spawn the robot in Gazebo (<em>shell#1</em>):
 
   ```bash
-roslaunch navigation cali_ecst_lab.launch
+roslaunch navigation spawn_cali_ecst_lab.launch
 ```
   In a <strong>second</strong> terminal, launch the <em><strong>Autonomous Navigation</strong></em> node (<em>shell#2</em>):
 
@@ -185,7 +185,7 @@ goal:
 
   Close all previous terminals, then open a <strong>new</strong> terminal (<em>shell#1</em>):
   ```bash
-  roslaunch navigation cali.launch
+  roslaunch navigation spawn_cali.launch
   ```
   In a <strong>second</strong> terminal (<em>shell#2</em>):
   ```bash
@@ -224,7 +224,7 @@ Thus, we have created a perception pose in Moveit for that matter.
 
 Close all previous terminals, and open 3 new terminals (<em>shell#1, shell#2 and shell#3</em>):
   ```bash
-roslaunch navigation cali.launch
+roslaunch navigation spawn_cali.launch
 roslaunch cali_project_moveit_config cali_planning_execution.launch
 roslaunch perception surface_detection.launch
 ```
@@ -282,7 +282,7 @@ First, we source the workspace and then <strong>spawn</strong> the robot in Gaze
 ```bash
 cd ~/catkin_ws
 source devel/setup.bash
-roslaunch navigation cali_ecst_lab.launch
+roslaunch navigation spawn_cali_ecst_lab.launch
 ```
 
 Launch <strong>Moveit</strong> (<em>shell#2</em>):

@@ -2,7 +2,7 @@
 <launch>
 
   <!--- Run AMCL, Map Server & provide map (from amcl.launch) -->
-  <include file="$(find navigation)/launch/localization_ecst_lab.launch" />
+  <include file="$(find navigation)/launch/localization.launch" />
 
   <arg name="no_static_map" default="false"/>
 
