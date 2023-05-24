@@ -256,7 +256,7 @@ We then use the position coordinates associated with the graspable object for Mo
 In a <strong>fifth</strong> and <strong>sixth</strong> terminal (<em>shell#5 and shell#6</em>):
 
 ```bash
-rosrun perception pub_objects_position.py
+roslaunch perception pub_object_pose_cafe_table.launch
 rosrun manipulation pick_place_ee.py
 ```
 
@@ -320,7 +320,7 @@ roslaunch perception surface_detection.launch
 Then, when the <strong>surface_detection</strong> algorithm has detected both the surface and object, we extract the position data from the robot to the object (<em>shell#6</em>):
 
 ```bash
-roslaunch perception pub_object_position_ecst.launch
+roslaunch perception pub_object_pose_ecst.launch
 ```
 
 <em>Cali</em> will now perform the Perception-based approach to get as close as possible to the graspable object and to start the Manipulation/Perception pipeline(<em>shell#7</em>):

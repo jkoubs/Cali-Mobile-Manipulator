@@ -2,8 +2,8 @@
 
   
     <node pkg ="perception"
-        type="pub_object_position_ecst.py"
-        name="object_data_extract_node"
+        type="pub_object_pose_ecst.py"
+        name="object_detection_node"
         output="screen">
     </node>
   
