@@ -225,10 +225,21 @@ Before launching the perception pipeline the camera needs to be <strong>correctl
 Thus, we have created a perception pose in Moveit for that matter.
 
 Close all previous terminals, and open 4 new terminals (<em>shell#1, shell#2, shell#3 and shell#4</em>):
-  ```bash
+
+<em>shell#1: </em>
+```bash
 roslaunch navigation spawn_cali.launch
+```
+<em>shell#2: </em>
+```bash
 roslaunch cali_project_moveit_config cali_planning_execution.launch
+```
+<em>shell#3: </em>
+```bash
 roslaunch manipulation camera_alignment.launch
+```
+<em>shell#4: </em>
+```bash
 roslaunch perception surface_detection.launch
 ```
 
@@ -257,12 +268,15 @@ This gives information about the surfaces and objects detected such as the geome
 
 We then use the position coordinates associated with the graspable object for MoveIt.
 
-In a <strong>fifth</strong> and <strong>sixth</strong> terminal (<em>shell#5 and shell#6</em>):
-
+<em>shell#5: </em>
 ```bash
 roslaunch perception pub_object_pose_cafe_table.launch
+```
+<em>shell#6: </em>
+```bash
 roslaunch manipulation pick_perception.launch
 ```
+
 
 Here is a GIF of the whole <strong>Perception/Manipulation</strong> pipeline:
 
