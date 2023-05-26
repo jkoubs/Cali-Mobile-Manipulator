@@ -10,7 +10,7 @@
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn= "false" output="screen">
     </node>
 
-    <arg name="x" default="0.1"/>
+    <arg name="x" default="0.18"/>
     <arg name="y" default="0.0"/>
     <arg name="z" default="0.1"/>
 

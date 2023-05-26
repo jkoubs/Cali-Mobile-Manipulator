@@ -112,6 +112,9 @@ rosrun map_server map_saver -f ecst_lab_map
   ```bash
 roslaunch navigation spawn_cali_ecst_lab.launch
 ```
+  <strong><em>Note: </em></strong> Before launching the localization node, we need to uncomment <strong>line 50</strong> of the <strong>localization.launch</strong> launch file located in the <strong>navigation</strong> package.
+  This will allow us open Rviz with the appropriate configurations for the localization pipeline.
+
   In a <strong>second</strong> terminal, launch the <em><strong>localization</strong></em> node (<em>shell#2</em>):
 
   ```bash
@@ -203,7 +206,7 @@ goal:
 
   In a <strong>third</strong> terminal (<em>shell#3</em>):
   ```bash
-  rosrun manipulation pick_place_joint_cmds.py
+  roslaunch manipulation pick_joint_cmds.launch
   ```
   ![grasp_coke_can](doc/grasp_coke_can.gif)
 
@@ -221,10 +224,11 @@ In order to perceive Cali's surroundings, an Intel Realsense d435 3D camera is u
 Before launching the perception pipeline the camera needs to be <strong>correctly aligned</strong>.
 Thus, we have created a perception pose in Moveit for that matter.
 
-Close all previous terminals, and open 3 new terminals (<em>shell#1, shell#2 and shell#3</em>):
+Close all previous terminals, and open 4 new terminals (<em>shell#1, shell#2, shell#3 and shell#4</em>):
   ```bash
 roslaunch navigation spawn_cali.launch
 roslaunch cali_project_moveit_config cali_planning_execution.launch
+roslaunch manipulation camera_alignment.launch
 roslaunch perception surface_detection.launch
 ```
 
@@ -257,7 +261,7 @@ In a <strong>fifth</strong> and <strong>sixth</strong> terminal (<em>shell#5 and
 
 ```bash
 roslaunch perception pub_object_pose_cafe_table.launch
-rosrun manipulation pick_place_ee.py
+roslaunch manipulation pick_perception.launch
 ```
 
 Here is a GIF of the whole <strong>Perception/Manipulation</strong> pipeline:
