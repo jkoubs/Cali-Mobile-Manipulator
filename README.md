@@ -224,7 +224,7 @@ In order to perceive Cali's surroundings, an Intel Realsense d435 3D camera is u
 Before launching the perception pipeline the camera needs to be <strong>correctly aligned</strong>.
 Thus, we have created a perception pose in Moveit for that matter.
 
-Close all previous terminals, and open 4 new terminals:
+Close all previous terminals, and open 3 new terminals:
 
 <em>shell#1: </em>
 ```bash
@@ -238,7 +238,7 @@ roslaunch cali_project_moveit_config cali_planning_execution.launch
 ```bash
 roslaunch manipulation camera_alignment.launch
 ```
-<em>shell#4: </em>
+Once the third shell has terminated, launch in <em>shell#3: </em>
 ```bash
 roslaunch perception surface_detection.launch
 ```
@@ -256,7 +256,7 @@ Then with our <strong>surface_detection</strong> algorithm we can detect a surfa
 
 From the <strong>surface_detection</strong> we get the <em><strong>/surface_objects</strong></em> topic.
 
-In a <strong>fourth</strong> terminal (<em>shell#4</em>):
+<em>shell#4: </em>
 
 ```bash
 rostopic echo /surface_objects
