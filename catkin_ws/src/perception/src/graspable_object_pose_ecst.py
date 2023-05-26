@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python4 new
 # -*- coding: utf-8 -*-
 
 import rospy
@@ -7,7 +7,7 @@ from visualization_msgs.msg import Marker
 from geometry_msgs.msg import Pose
 
 
-class SurfaceObjectFilter:
+class GraspableObjectPose:
     def __init__(self, table_height_init=0.63, error_height=0.05):
         self._rate = rospy.Rate(5)
         self.table_height = table_height_init
@@ -95,6 +95,6 @@ if __name__ == "__main__":
     rospy.init_node("object_detection_node", log_level=rospy.INFO)
 
     try:
-        SurfaceObjectFilter().run()
+        GraspableObjectPose().run()
     except KeyboardInterrupt:
         rospy.loginfo("Shutting down")

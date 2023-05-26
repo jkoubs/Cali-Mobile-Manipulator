@@ -2,7 +2,7 @@
 
   
     <node pkg ="perception"
-        type="pub_object_pose_ecst.py"
+        type="graspable_object_pose.py"
         name="object_detection_node"
         output="screen">
     </node>

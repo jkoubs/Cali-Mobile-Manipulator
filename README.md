@@ -270,7 +270,7 @@ We then use the position coordinates associated with the graspable object for Mo
 
 <em>shell#5: </em>
 ```bash
-roslaunch perception pub_object_pose_cafe_table.launch
+roslaunch perception graspable_object_pose.launch
 ```
 <em>shell#6: </em>
 ```bash
@@ -284,9 +284,6 @@ Here is a GIF of the whole <strong>Perception/Manipulation</strong> pipeline:
 
 
 We can see that it is now able to grasp the object using our <strong>Perception/Manipulation</strong> pipeline.
-
-
-
 
 
 ## Fetch-and-Carry Mission
@@ -338,7 +335,7 @@ roslaunch perception surface_detection.launch
 Then, when the <strong>surface_detection</strong> algorithm has detected both the surface and object, we extract the position data from the robot to the object (<em>shell#6</em>):
 
 ```bash
-roslaunch perception pub_object_pose_ecst.launch
+roslaunch perception graspable_object_pose_ecst.launch
 ```
 
 <em>Cali</em> will now perform the Perception-based approach to get as close as possible to the graspable object and to start the Manipulation/Perception pipeline(<em>shell#7</em>):
