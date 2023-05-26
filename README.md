@@ -202,7 +202,7 @@ goal:
 
   ![moveit_gripper](doc/moveit_gripper.gif)
 
-  - Grasp the coke can using joint commands
+  - Grasp the coke can using <strong>joint commands</strong>
 
   In a <strong>third</strong> terminal (<em>shell#3</em>):
   ```bash
@@ -213,16 +213,12 @@ goal:
   Later, rather than using the joint commands, we will use the <strong>end effector position</strong> given by the <strong>Perception</strong> pipeline to grasp our object.
 
 
-
-
-
-
 ## Perception Pipeline
 
 In order to perceive Cali's surroundings, an Intel Realsense d435 3D camera is used and placed on top of the last link of the arm. The data will then be used in ROS via a topic.
 
 Before launching the perception pipeline the camera needs to be <strong>correctly aligned</strong>.
-Thus, we have created a perception pose in Moveit for that matter.
+Thus, we have created launch file for this: <strong>camera_alignment.launch</strong>
 
 Close all previous terminals, and open 3 new terminals:
 
@@ -326,7 +322,7 @@ Call the <strong>Service</strong> to go to towards the coke can (<em>shell#5</em
 ```bash
 rosservice call /go_to_point "label: 'approach'"
 ```
-Once <em>Cali</em> has arrived to its new position, he is now ready to perform the object detection pipeline(<em>shell#5</em>):
+Once <em>Cali</em> has arrived to its new position, he is now ready to perform the object detection pipeline (<em>shell#5</em>):
 
 ```bash
 roslaunch perception surface_detection.launch
