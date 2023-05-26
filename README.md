@@ -224,7 +224,7 @@ In order to perceive Cali's surroundings, an Intel Realsense d435 3D camera is u
 Before launching the perception pipeline the camera needs to be <strong>correctly aligned</strong>.
 Thus, we have created a perception pose in Moveit for that matter.
 
-Close all previous terminals, and open 4 new terminals (<em>shell#1, shell#2, shell#3 and shell#4</em>):
+Close all previous terminals, and open 4 new terminals:
 
 <em>shell#1: </em>
 ```bash
