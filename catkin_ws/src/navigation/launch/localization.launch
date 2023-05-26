@@ -47,4 +47,6 @@
     <remap from="scan" to="$(arg scan_topic)"/>    
   </node>  
 
+  <!-- <node pkg="rviz" type="rviz" name="rviz" args="-d $(find navigation)/rviz_config/localization.rviz" /> -->
+  
 </launch>

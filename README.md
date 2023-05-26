@@ -112,6 +112,9 @@ rosrun map_server map_saver -f ecst_lab_map
   ```bash
 roslaunch navigation spawn_cali_ecst_lab.launch
 ```
+  <strong><em>Note: </em></strong> Before launching the localization node, we need to uncomment <strong>line 50</strong> of the <strong>localization.launch</strong> launch file located in the <strong>navigation</strong> package.
+  This will allow us open Rviz with the appropriate configurations for the localization pipeline.
+
   In a <strong>second</strong> terminal, launch the <em><strong>localization</strong></em> node (<em>shell#2</em>):
 
   ```bash
@@ -199,19 +202,15 @@ goal:
 
   ![moveit_gripper](doc/moveit_gripper.gif)
 
-  - Grasp the coke can using joint commands
+  - Grasp the coke can using <strong>joint commands</strong>
 
   In a <strong>third</strong> terminal (<em>shell#3</em>):
   ```bash
-  rosrun manipulation pick_place_joint_cmds.py
+  roslaunch manipulation pick_joint_cmds.launch
   ```
   ![grasp_coke_can](doc/grasp_coke_can.gif)
 
   Later, rather than using the joint commands, we will use the <strong>end effector position</strong> given by the <strong>Perception</strong> pipeline to grasp our object.
-
-
-
-
 
 
 ## Perception Pipeline
@@ -219,12 +218,24 @@ goal:
 In order to perceive Cali's surroundings, an Intel Realsense d435 3D camera is used and placed on top of the last link of the arm. The data will then be used in ROS via a topic.
 
 Before launching the perception pipeline the camera needs to be <strong>correctly aligned</strong>.
-Thus, we have created a perception pose in Moveit for that matter.
+Thus, we have created launch file for this: <strong>camera_alignment.launch</strong>
 
-Close all previous terminals, and open 3 new terminals (<em>shell#1, shell#2 and shell#3</em>):
-  ```bash
+Close all previous terminals, and open 3 new terminals:
+
+<em>shell#1: </em>
+```bash
 roslaunch navigation spawn_cali.launch
+```
+<em>shell#2: </em>
+```bash
 roslaunch cali_project_moveit_config cali_planning_execution.launch
+```
+<em>shell#3: </em>
+```bash
+roslaunch manipulation camera_alignment.launch
+```
+Once the third shell has terminated, launch in <em>shell#3: </em>
+```bash
 roslaunch perception surface_detection.launch
 ```
 
@@ -241,7 +252,7 @@ Then with our <strong>surface_detection</strong> algorithm we can detect a surfa
 
 From the <strong>surface_detection</strong> we get the <em><strong>/surface_objects</strong></em> topic.
 
-In a <strong>fourth</strong> terminal (<em>shell#4</em>):
+<em>shell#4: </em>
 
 ```bash
 rostopic echo /surface_objects
@@ -253,12 +264,15 @@ This gives information about the surfaces and objects detected such as the geome
 
 We then use the position coordinates associated with the graspable object for MoveIt.
 
-In a <strong>fifth</strong> and <strong>sixth</strong> terminal (<em>shell#5 and shell#6</em>):
-
+<em>shell#5: </em>
 ```bash
-rosrun perception pub_objects_position.py
-rosrun manipulation pick_place_ee.py
+roslaunch perception graspable_object_pose.launch
 ```
+<em>shell#6: </em>
+```bash
+roslaunch manipulation pick_perception.launch
+```
+
 
 Here is a GIF of the whole <strong>Perception/Manipulation</strong> pipeline:
 
@@ -266,9 +280,6 @@ Here is a GIF of the whole <strong>Perception/Manipulation</strong> pipeline:
 
 
 We can see that it is now able to grasp the object using our <strong>Perception/Manipulation</strong> pipeline.
-
-
-
 
 
 ## Fetch-and-Carry Mission
@@ -311,7 +322,7 @@ Call the <strong>Service</strong> to go to towards the coke can (<em>shell#5</em
 ```bash
 rosservice call /go_to_point "label: 'approach'"
 ```
-Once <em>Cali</em> has arrived to its new position, he is now ready to perform the object detection pipeline(<em>shell#5</em>):
+Once <em>Cali</em> has arrived to its new position, he is now ready to perform the object detection pipeline (<em>shell#5</em>):
 
 ```bash
 roslaunch perception surface_detection.launch
@@ -320,7 +331,7 @@ roslaunch perception surface_detection.launch
 Then, when the <strong>surface_detection</strong> algorithm has detected both the surface and object, we extract the position data from the robot to the object (<em>shell#6</em>):
 
 ```bash
-roslaunch perception pub_object_position_ecst.launch
+roslaunch perception graspable_object_pose_ecst.launch
 ```
 
 <em>Cali</em> will now perform the Perception-based approach to get as close as possible to the graspable object and to start the Manipulation/Perception pipeline(<em>shell#7</em>):

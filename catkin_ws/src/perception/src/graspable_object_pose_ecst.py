@@ -1,28 +1,29 @@
-#!/usr/bin/env python
+#!/usr/bin/env python4 new
 # -*- coding: utf-8 -*-
 
 import rospy
+
 from visualization_msgs.msg import Marker
 from geometry_msgs.msg import Pose
 
 
-class SurfaceObjectFilter:
+class GraspableObjectPose:
     def __init__(self, table_height_init=0.63, error_height=0.05):
         self._rate = rospy.Rate(5)
-
         self.table_height = table_height_init
         self._error_height = error_height
         self.object_dict = {}
         self.surface_topic = "/surface_objects"
         self._check_surface_ready()
+        self.graspable_object_position = Pose()
 
         rospy.Subscriber(self.surface_topic, Marker, self.surface_callback)
         self.my_pub = rospy.Publisher("/graspable_object_pose", Pose, queue_size=10)
-        self.graspable_object_position = Pose()
-
-        rospy.loginfo("Ready to detect Surfaces!")
 
     def _check_surface_ready(self):
+        """
+        Checks whether or not the /surface_objects is ready to start the object detection
+        """
         self._surface_data = None
         while self._surface_data is None and not rospy.is_shutdown():
             try:
@@ -32,7 +33,7 @@ class SurfaceObjectFilter:
                 rospy.logdebug(
                     "Current "
                     + self.surface_topic
-                    + " READY=>"
+                    + "READY=>"
                     + str(self._surface_data)
                 )
 
@@ -41,10 +42,10 @@ class SurfaceObjectFilter:
                     "Current " + self.surface_topic + " not ready yet, retrying."
                 )
 
-    def update_table_height(self, new_table_height):
-        self.table_height = new_table_height
-
     def look_for_table_surface(self, z_value):
+        """
+        Looks for table surfaces based on the table height
+        """
         delta_min = z_value - self._error_height
         delta_max = z_value + self._error_height
         is_the_table = delta_min < self.table_height < delta_max
@@ -52,9 +53,11 @@ class SurfaceObjectFilter:
         return is_the_table
 
     def surface_callback(self, msg):
+        """
+        Looks for objects placed on top of surfaces
+        """
         name = msg.ns
         self.graspable_object_position = msg.pose
-        # object_pose = msg.pose
 
         if "surface_" in name and "_axes" in name:
             # We check the heigh in z to see if its the table
@@ -66,12 +69,21 @@ class SurfaceObjectFilter:
                     self.object_dict[name] = self.graspable_object_position
                     rospy.loginfo("Found New Surface=")
         else:
-            rospy.logdebug("Surface Object Not found " + str(name))
+            rospy.logdebug("Surface Object Not found" + str(name))
 
     def get_object_dict_detected(self):
+        """
+        Returns Dictionary of string msg as keys and a Pose msg as values
+        The key corresponds to the name of the detected object(s)
+        The value corresponds to the position of the detected object(s) relative to the robot_footprint frame
+        """
         return self.object_dict
 
     def run(self):
+        """
+        Runs the object detection algorithm
+        And publishes the positions of the detected object(s) into the /graspable_object_pose topic
+        """
         while not rospy.is_shutdown():
             objects_detected = self.get_object_dict_detected()
             rospy.loginfo(str(objects_detected))
@@ -80,9 +92,9 @@ class SurfaceObjectFilter:
 
 
 if __name__ == "__main__":
-    rospy.init_node("object_data_extract_node", log_level=rospy.INFO)
+    rospy.init_node("object_detection_node", log_level=rospy.INFO)
 
     try:
-        SurfaceObjectFilter().run()
+        GraspableObjectPose().run()
     except KeyboardInterrupt:
         rospy.loginfo("Shutting down")
