@@ -1,4 +1,4 @@
-#!/usr/bin/env python4 new
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 import rospy

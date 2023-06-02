@@ -3,7 +3,7 @@
 
 import rospy
 
-from pub_object_pose_ecst import SurfaceObjectFilter
+from graspable_object_pose_ecst import SurfaceObjectFilter
 
 # Here we are performing object detection for an object placed on top of a cafe table mesuring 78 cm
 if __name__ == "__main__":
