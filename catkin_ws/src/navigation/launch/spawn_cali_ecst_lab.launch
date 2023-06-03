@@ -31,7 +31,6 @@
     <!-- ARM CONTROLLER -->
     <rosparam file="$(find manipulation)/config/arm_controller_scorbot.yaml" command="load"/>
 
-
     <!--GRIPPER CONTROLLER-->
     <rosparam file="$(find manipulation)/config/gripper_controller.yaml" command="load"/>
     <param name="gripper_controller/joint" value="scorbot_pad1_joint"/>

@@ -20,113 +20,79 @@ class Pick_Place:
             self.group_gripper.get_current_joint_values()
         )
 
-    def open_gripper(self):
-        # Step1: pose_goal joint values [ARM GROUP]
-
-        self.group_variable_values_gripper_close[0] = 1.57
-        self.group_gripper.set_joint_value_target(
-            self.group_variable_values_gripper_close
-        )
-
-        self.plan1 = self.group_gripper.plan()
-
-        self.group_gripper.go(wait=True)
-        rospy.sleep(2)
-
-    def pregrasp(self):
-        # Step2: pose_goal joint values [ARM GROUP]
-
-        # self.group_variable_values_arm_goal[0] = 0.08
-        # self.group_variable_values_arm_goal[1] = 1.15
-        # self.group_variable_values_arm_goal[2] = 0.0
-        # self.group_variable_values_arm_goal[3] = 0.41
-        # self.group_variable_values_arm_goal[4] = 0.0
-
-        self.group_variable_values_arm_goal[0] = 0.09
-        self.group_variable_values_arm_goal[1] = 0.33
-        self.group_variable_values_arm_goal[2] = 1.41
-        self.group_variable_values_arm_goal[3] = 0.0
-        self.group_variable_values_arm_goal[4] = 0.0
+    def execute_arm_cmds(self):
+        """
+        Executes the group "arm" commands
+        """
         self.group_arm.set_joint_value_target(self.group_variable_values_arm_goal)
-
-        self.plan2 = self.group_arm.plan()
-
         self.group_arm.go(wait=True)
         rospy.sleep(2)
 
-    def grasp(self):
-        # Step3: Close Gripper joint value [GRIPPER GROUP]
-
-        self.group_variable_values_gripper_close[0] = 0.55
+    def execute_gripper_cmds(self):
+        """
+        Executes the group "gripper" commands
+        """
         self.group_gripper.set_joint_value_target(
             self.group_variable_values_gripper_close
         )
-
-        self.plan3 = self.group_gripper.plan()
-
         self.group_gripper.go(wait=True)
         rospy.sleep(2)
 
-    def retreat(self):
-        # Step4: Retreat/Move back [ARM GROUP]
+    def open_gripper(self):
+        """
+        Step 1: Open the Gripper
+        """
+        self.group_variable_values_gripper_close[0] = 1.57
+        self.execute_gripper_cmds()
 
+    def pregrasp(self):
+        """
+        Step 2: Pregrasp
+        """
+        self.group_variable_values_arm_goal[0] = 0.15
+        self.group_variable_values_arm_goal[1] = 0.23
+        self.group_variable_values_arm_goal[2] = 1.00
+        self.group_variable_values_arm_goal[3] = 1.90
+        self.group_variable_values_arm_goal[4] = -0.19
+        self.execute_arm_cmds()
+
+    def grasp(self):
+        """
+        Step 3: Grasp
+        """
+        self.group_variable_values_gripper_close[0] = 0.60
+        self.execute_gripper_cmds()
+
+    def retreat(self):
+        """
+        Step 4: Retreat
+        """
         self.group_variable_values_arm_goal[0] = 0.0
         self.group_variable_values_arm_goal[1] = 0.45
         self.group_variable_values_arm_goal[2] = -0.82
         self.group_variable_values_arm_goal[3] = 1.95
         self.group_variable_values_arm_goal[4] = 0.0
-        self.group_arm.set_joint_value_target(self.group_variable_values_arm_goal)
-
-        self.plan4 = self.group_arm.plan()
-
-        self.group_arm.go(wait=True)
-        rospy.sleep(2)
-
-    # def rotate(self):
-    #     # Step5: Turn Shoulder Joint 180 degrees [ARM GROUP]
-
-    #     self.group_variable_values_arm_goal[0] = -3.14
-    #     self.group_variable_values_arm_goal[1] = -1.0
-    #     self.group_variable_values_arm_goal[2] = 1.43
-    #     self.group_variable_values_arm_goal[3] = -1.76
-    #     self.group_variable_values_arm_goal[4] = -1.51
-    #     self.group_variable_values_arm_goal[5] = -1.6298
-    #     self.group_arm.set_joint_value_target(
-    #         self.group_variable_values_arm_goal)
-
-    #     self.plan5 = self.group_arm.plan()
-
-    #     self.group_arm.go(wait=True)
-    #     rospy.sleep(2)
-
-    # def release_object(self):
-    #     # Step6: Open Gripper [GRIPPER GROUP]
-
-    #     self.group_variable_values_gripper_close[0] = 0.2
-    #     self.group_gripper.set_joint_value_target(
-    #         self.group_variable_values_gripper_close)
-
-    #     self.plan6 = self.group_gripper.plan()
-
-    #     self.group_gripper.go(wait=True)
-    #     rospy.sleep(2)
+        self.execute_arm_cmds()
 
     def main(self):
-        print("1st lets verify the reference frame to set the EE Goal Pose")
-        print(self.group_arm.get_pose_reference_frame())
+        """
+        Performs the pick mission
+        Consists of picking up the coke can from the table
+        For the entire mission, it uses the joint commands
+        """
+        rospy.loginfo(
+            "Reference frame to set end effector goal poses is: %s",
+            self.group_arm.get_pose_reference_frame(),
+        )
 
         rospy.loginfo("Open Gripper ..")
         pick_place_object.open_gripper()
-        rospy.loginfo("Going to Goal Pose..")
+        rospy.loginfo("Pregrasp..")
         pick_place_object.pregrasp()
-        rospy.loginfo("Now Going to Grasp the object..")
+        rospy.loginfo("Grasp the object..")
         pick_place_object.grasp()
         rospy.loginfo("Retreating..")
         pick_place_object.retreat()
-        # rospy.loginfo('Rotating..')
-        # pick_place_object.rotate()
-        # rospy.loginfo('Releasing object..')
-        # pick_place_object.release_object()
 
         rospy.loginfo("Shuting Down ..")
         moveit_commander.roscpp_shutdown()
