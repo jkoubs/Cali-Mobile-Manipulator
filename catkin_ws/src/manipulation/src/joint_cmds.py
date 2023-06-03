@@ -85,6 +85,30 @@ class Joint_Cmds:
         self.group_variable_values_arm_goal[4] = 0.0
         self.execute_arm_cmds()
 
+    def dump_object(self):
+        """
+        Dump object pose
+        """
+        self.pick_joint_cmds.group_variable_values_arm_goal[0] = 0.0
+        self.pick_joint_cmds.group_variable_values_arm_goal[1] = 1.52
+        self.pick_joint_cmds.group_variable_values_arm_goal[2] = 0.0
+        self.pick_joint_cmds.group_variable_values_arm_goal[3] = 0.0
+        self.pick_joint_cmds.group_variable_values_arm_goal[4] = 0.0
+        self.execute_arm_cmds()
+
+        # self.group_arm.set_joint_value_target(
+        #     self.pick_joint_cmds.group_variable_values_arm_goal
+        # )
+
+        # # self.plan1 = self.group_arm.plan()
+
+        # self.pick_joint_cmds.group_arm.go(wait=True)
+        # rospy.sleep(2)
+
+        # # self.plan2 = self.group_gripper.plan()
+        # self.pick_joint_cmds.group_gripper.go(wait=True)
+        # rospy.sleep(2)
+
     def main(self):
         """
         Performs the pick mission

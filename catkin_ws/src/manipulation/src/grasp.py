@@ -4,61 +4,45 @@ import sys
 import rospy
 import moveit_commander
 
+from joint_cmds import Joint_Cmds
+
 from geometry_msgs.msg import Pose
 from geometry_msgs.msg import Twist
 
 
-class Pick_Place_EE_Pose:
+class Grasp:
     def __init__(self):
         ## First initialize `moveit_commander`_ and a `rospy`_ node:
         moveit_commander.roscpp_initialize(sys.argv)
+        self.pick_joint_cmds = Joint_Cmds()
 
-        ## Instantiate a `RobotCommander`_ object. This object is the outer-level interface to
-        ## the robot:
-        self.robot = moveit_commander.RobotCommander()
+        # self.rb1_vel_publisher = rospy.Publisher("/cmd_vel", Twist, queue_size=1)
+        # self.sub = rospy.Subscriber("/graspable_object_pose", Pose, self.pose_callback)
 
-        ## Instantiate a `PlanningSceneInterface`_ object.  This object is an interface
-        ## to the world surrounding the robot:
-        self.scene = moveit_commander.PlanningSceneInterface()
-
-        ## Instantiate a `MoveGroupCommander`_ object.  This object is an interface
-        ## to one group of joints.
-        self.group_arm = moveit_commander.MoveGroupCommander("arm")
-        self.group_gripper = moveit_commander.MoveGroupCommander("gripper")
-
-        self.rb1_vel_publisher = rospy.Publisher("/cmd_vel", Twist, queue_size=1)
-
-        self.sub = rospy.Subscriber("/graspable_object_pose", Pose, self.pose_callback)
-
-        # Get arm and gripper joint values
-        self.group_variable_values_arm_goal = self.group_arm.get_current_joint_values()
-        self.group_variable_values_gripper_close = (
-            self.group_gripper.get_current_joint_values()
-        )
         self.pose_target = Pose()
         self.reach = Pose()
         self.rate = rospy.Rate(10)
 
-        self.offset_x = -0.04
-        self.offset_y = 0.015
-        self.offset_z = 0.033
-        self.ctrl_c = False
+        # self.offset_x = -0.04
+        # self.offset_y = 0.015
+        # self.offset_z = 0.033
+        # self.ctrl_c = False
         self.cmd = Twist()
 
-    def publish_once_in_cmd_vel(self):
-        """
-        This is because publishing in topics sometimes fails the first time you publish.
-        In continuous publishing systems, this is no big deal, but in systems that publish only
-        once, it IS very important.
-        """
-        while not self.ctrl_c:
-            connections = self.rb1_vel_publisher.get_num_connections()
-            if connections > 0:
-                self.rb1_vel_publisher.publish(self.cmd)
-                rospy.loginfo("Cmd Published")
-                break
-            else:
-                self.rate.sleep()
+    # def publish_once_in_cmd_vel(self):
+    #     """
+    #     This is because publishing in topics sometimes fails the first time you publish.
+    #     In continuous publishing systems, this is no big deal, but in systems that publish only
+    #     once, it IS very important.
+    #     """
+    #     while not self.ctrl_c:
+    #         connections = self.rb1_vel_publisher.get_num_connections()
+    #         if connections > 0:
+    #             self.rb1_vel_publisher.publish(self.cmd)
+    #             rospy.loginfo("Cmd Published")
+    #             break
+    #         else:
+    #             self.rate.sleep()
 
     def pose_callback(self, msg):
         # This is the pose given from the camera
@@ -128,6 +112,9 @@ class Pick_Place_EE_Pose:
         rospy.sleep(2)
 
     def pregrasp(self):
+        offset_x = -0.04
+        offset_y = 0.015
+        offset_z = 0.033
         self.move_forward()
         while not self.pose_x_from_cam < 0.71:
             rospy.loginfo(
@@ -139,9 +126,9 @@ class Pick_Place_EE_Pose:
         print("reach =")
         print(self.pose_x_from_cam)
 
-        self.pose_target.position.x = self.pose_x_from_cam + self.offset_x
-        self.pose_target.position.y = self.pose_y_from_cam + self.offset_y
-        self.pose_target.position.z = self.pose_z_from_cam + self.offset_z
+        self.pose_target.position.x = self.pose_x_from_cam + offset_x
+        self.pose_target.position.y = self.pose_y_from_cam + offset_y
+        self.pose_target.position.z = self.pose_z_from_cam + offset_z
 
         self.pose_target.orientation.x = 0.0
         self.pose_target.orientation.y = 0.0
@@ -236,7 +223,7 @@ class Pick_Place_EE_Pose:
 
 if __name__ == "__main__":
     rospy.init_node("grasp_coke_can", anonymous=True)
-    pick_place_object = Pick_Place_EE_Pose()
+    pick_place_object = Grasp()
     try:
         pick_place_object.main()
     except rospy.ROSInterruptException:
