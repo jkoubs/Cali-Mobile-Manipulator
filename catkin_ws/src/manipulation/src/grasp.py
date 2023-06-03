@@ -16,7 +16,7 @@ class Grasp:
         moveit_commander.roscpp_initialize(sys.argv)
         self.pick_joint_cmds = Joint_Cmds()
 
-        # self.rb1_vel_publisher = rospy.Publisher("/cmd_vel", Twist, queue_size=1)
+        self.rb1_vel_publisher = rospy.Publisher("/cmd_vel", Twist, queue_size=1)
         # self.sub = rospy.Subscriber("/graspable_object_pose", Pose, self.pose_callback)
 
         self.pose_target = Pose()
@@ -26,23 +26,23 @@ class Grasp:
         # self.offset_x = -0.04
         # self.offset_y = 0.015
         # self.offset_z = 0.033
-        # self.ctrl_c = False
+        self.ctrl_c = False
         self.cmd = Twist()
 
-    # def publish_once_in_cmd_vel(self):
-    #     """
-    #     This is because publishing in topics sometimes fails the first time you publish.
-    #     In continuous publishing systems, this is no big deal, but in systems that publish only
-    #     once, it IS very important.
-    #     """
-    #     while not self.ctrl_c:
-    #         connections = self.rb1_vel_publisher.get_num_connections()
-    #         if connections > 0:
-    #             self.rb1_vel_publisher.publish(self.cmd)
-    #             rospy.loginfo("Cmd Published")
-    #             break
-    #         else:
-    #             self.rate.sleep()
+    def publish_once_in_cmd_vel(self):
+        """
+        This is because publishing in topics sometimes fails the first time you publish.
+        In continuous publishing systems, this is no big deal, but in systems that publish only
+        once, it IS very important.
+        """
+        while not self.ctrl_c:
+            connections = self.rb1_vel_publisher.get_num_connections()
+            if connections > 0:
+                self.rb1_vel_publisher.publish(self.cmd)
+                rospy.loginfo("Cmd Published")
+                break
+            else:
+                self.rate.sleep()
 
     def pose_callback(self, msg):
         # This is the pose given from the camera
@@ -62,14 +62,6 @@ class Grasp:
         self.cmd.linear.x = 0.0
         self.cmd.angular.z = 0.0
         self.publish_once_in_cmd_vel()
-
-    def check_reach(self):
-        self.reach.position.x = self.pose_x_from_cam
-        while self.reach.position.x > 0.69:
-            print(self.reach.position.x)
-            self.move_forward()
-            self.rate.sleep()
-        self.stop()
 
     def get_data(self):
         self.group_arm.allow_replanning(True)
@@ -98,19 +90,6 @@ class Grasp:
         print("Robot State:")
         print(self.robot.get_current_state())
 
-    def open_gripper(self):
-        # Step1: Open Gripper joint value [GRIPPER GROUP]
-
-        self.group_variable_values_gripper_close[0] = 1.57
-        self.group_gripper.set_joint_value_target(
-            self.group_variable_values_gripper_close
-        )
-
-        self.plan1 = self.group_gripper.plan()
-
-        self.group_gripper.go(wait=True)
-        rospy.sleep(2)
-
     def pregrasp(self):
         offset_x = -0.04
         offset_y = 0.015
@@ -129,10 +108,6 @@ class Grasp:
         self.pose_target.position.x = self.pose_x_from_cam + offset_x
         self.pose_target.position.y = self.pose_y_from_cam + offset_y
         self.pose_target.position.z = self.pose_z_from_cam + offset_z
-
-        self.pose_target.orientation.x = 0.0
-        self.pose_target.orientation.y = 0.0
-        self.pose_target.orientation.z = 0.0
         self.pose_target.orientation.w = 1
 
         # Print our goal pose
@@ -168,54 +143,18 @@ class Grasp:
         print(self.pose_target.orientation.w)
         rospy.sleep(2)
 
-    def grasp(self):
-        # Step3: Open Gripper joint value [GRIPPER GROUP]
-
-        self.group_variable_values_gripper_close[0] = 0.6
-        self.group_gripper.set_joint_value_target(
-            self.group_variable_values_gripper_close
-        )
-
-        self.plan3 = self.group_gripper.plan()
-
-        self.group_gripper.go(wait=True)
-        rospy.sleep(2)
-
-    def retreat(self):
-        # Step4: Retreat/Move back [ARM GROUP]
-        self.group_variable_values_arm_goal[0] = 0
-        self.group_variable_values_arm_goal[1] = 0.45
-        self.group_variable_values_arm_goal[2] = -0.82
-        self.group_variable_values_arm_goal[3] = 1.95
-        self.group_variable_values_arm_goal[4] = 0
-        self.group_arm.set_joint_value_target(self.group_variable_values_arm_goal)
-
-        self.plan4 = self.group_arm.plan()
-
-        self.group_arm.go(wait=True)
-        rospy.sleep(2)
-
     def main(self):
         rospy.loginfo("Getting Data..")
         pick_place_object.get_data()
 
-        # rospy.loginfo('Now check if robot can reach the graspable object............')
-        # pick_place_object.check_reach()
-
-        # while self.pose_x_from_cam > 0.69:
-        #     print(self.pose_x_from_cam)
-        #     pick_place_object.move_forward()
-        #     self.rate.sleep()
-        # pick_place_object.stop()
-
         rospy.loginfo("Opening Gripper..")
-        pick_place_object.open_gripper()
+        self.pick_joint_cmds.open_gripper()
         rospy.loginfo("Pregrasp..")
         pick_place_object.pregrasp()
         rospy.loginfo("Grasp..")
-        pick_place_object.grasp()
+        self.pick_joint_cmds.grasp()
         rospy.loginfo("Retreating..")
-        pick_place_object.retreat()
+        self.pick_joint_cmds.retreat()
 
         rospy.loginfo("Shuting Down ..")
         moveit_commander.roscpp_shutdown()
