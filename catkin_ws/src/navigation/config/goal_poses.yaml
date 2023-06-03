@@ -1,4 +1,4 @@
-approach:
+approach_coke_can:
   position: 
     x: 1.68430342457
     y: 11.0038929891
@@ -10,7 +10,7 @@ approach:
     w: 0.700716751881
 
 
-release_position:
+release_coke_can:
   position: 
     x: -2.1248
     y: -2.6404

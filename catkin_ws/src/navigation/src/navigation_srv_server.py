@@ -40,7 +40,7 @@ class GoToPOI:
         """
         goal = MoveBaseGoal()
 
-        if request.label == "approach":
+        if request.label == "approach_coke_can":
             goal.target_pose.header.frame_id = "map"
             goal.target_pose.pose.position.x = self.goal_poses.position_x
             goal.target_pose.pose.position.y = self.goal_poses.position_y
@@ -50,7 +50,7 @@ class GoToPOI:
             goal.target_pose.pose.orientation.z = self.goal_poses.orientation_z
             goal.target_pose.pose.orientation.w = self.goal_poses.orientation_w
 
-        elif request.label == "release_position":
+        elif request.label == "release_coke_can":
             goal.target_pose.header.frame_id = "map"
             goal.target_pose.pose.position.x = self.goal_poses.position2_x
             goal.target_pose.pose.position.y = self.goal_poses.position2_y

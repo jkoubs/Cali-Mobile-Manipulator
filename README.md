@@ -320,7 +320,7 @@ roslaunch navigation navigation_srv_server.launch
 Call the <strong>Service</strong> to go to towards the coke can (<em>shell#5</em>):
 
 ```bash
-rosservice call /go_to_point "label: 'approach'"
+rosservice call /go_to_point "label: 'approach_coke_can'"
 ```
 Once <em>Cali</em> has arrived to its new position, he is now ready to perform the object detection pipeline (<em>shell#5</em>):
 
@@ -343,7 +343,7 @@ roslaunch manipulation grasp.launch
 Once the coke can is grasped and retreated, we can <strong>close shell #6 and # 5</strong>, then call our Navigation <strong>Service</strong> to go to the <strong>release_position</strong> pose (<em>shell#5</em>):
 
 ```bash
-rosservice call /go_to_point "label: 'release_position'"
+rosservice call /go_to_point "label: 'release_coke_can'"
 ```
 
 Finally, we <strong>release</strong> the coke can inside the trash can (<em>shell#5</em>):
