@@ -1,49 +1,20 @@
 #! /usr/bin/env python
 
 import sys
-import copy
 import rospy
 import moveit_commander
-import moveit_msgs.msg
-import geometry_msgs.msg
+
+from joint_cmds import Joint_Cmds
 
 
-class Orient_Camera:
+class Camera_Alignment:
     def __init__(self):
         moveit_commander.roscpp_initialize(sys.argv)
-
-        self.robot = moveit_commander.RobotCommander()
-        self.scene = moveit_commander.PlanningSceneInterface()
-        self.group_arm = moveit_commander.MoveGroupCommander("arm")
-        self.group_gripper = moveit_commander.MoveGroupCommander("gripper")
-
-        # Get arm and gripper joint values
-        self.group_variable_values_arm_goal = self.group_arm.get_current_joint_values()
-        self.group_variable_values_gripper_close = (
-            self.group_gripper.get_current_joint_values()
-        )
-
-    def perception_pose(self):
-        # Step1: Orient Camera in order to launch our Perception node [ARM GROUP]
-
-        self.group_variable_values_arm_goal[0] = 0.0
-        self.group_variable_values_arm_goal[1] = -0.35
-        self.group_variable_values_arm_goal[2] = 0.73
-        self.group_variable_values_arm_goal[3] = 1.91
-        self.group_variable_values_arm_goal[4] = 0.0
-        self.group_arm.set_joint_value_target(self.group_variable_values_arm_goal)
-
-        self.plan = self.group_arm.plan()
-
-        self.group_arm.go(wait=True)
-        rospy.sleep(2)
+        self.pick_joint_cmds = Joint_Cmds()
 
     def main(self):
-        print("1st lets verify the reference frame to set the EE Goal Pose")
-        print(self.group_arm.get_pose_reference_frame())
-
-        rospy.loginfo("Orient Camera towards the table ..")
-        orient_camera_object.perception_pose()
+        rospy.loginfo("Orient Camera towards the table..")
+        self.pick_joint_cmds.camera_alignment()
 
         rospy.loginfo("Shuting Down ..")
         moveit_commander.roscpp_shutdown()
@@ -51,7 +22,7 @@ class Orient_Camera:
 
 if __name__ == "__main__":
     rospy.init_node("orient_camera_node", anonymous=True)
-    orient_camera_object = Orient_Camera()
+    orient_camera_object = Camera_Alignment()
     try:
         orient_camera_object.main()
     except rospy.ROSInterruptException:

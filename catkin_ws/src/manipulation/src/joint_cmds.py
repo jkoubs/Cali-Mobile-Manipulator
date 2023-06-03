@@ -5,7 +5,7 @@ import rospy
 import moveit_commander
 
 
-class Pick_Place:
+class Joint_Cmds:
     def __init__(self):
         moveit_commander.roscpp_initialize(sys.argv)
 
@@ -40,14 +40,14 @@ class Pick_Place:
 
     def open_gripper(self):
         """
-        Step 1: Open the Gripper
+        Open the Gripper
         """
         self.group_variable_values_gripper_close[0] = 1.57
         self.execute_gripper_cmds()
 
     def pregrasp(self):
         """
-        Step 2: Pregrasp
+        Pregrasp
         """
         self.group_variable_values_arm_goal[0] = 0.15
         self.group_variable_values_arm_goal[1] = 0.23
@@ -58,19 +58,30 @@ class Pick_Place:
 
     def grasp(self):
         """
-        Step 3: Grasp
+        Grasp
         """
         self.group_variable_values_gripper_close[0] = 0.60
         self.execute_gripper_cmds()
 
     def retreat(self):
         """
-        Step 4: Retreat
+        Retreat
         """
         self.group_variable_values_arm_goal[0] = 0.0
         self.group_variable_values_arm_goal[1] = 0.45
         self.group_variable_values_arm_goal[2] = -0.82
         self.group_variable_values_arm_goal[3] = 1.95
+        self.group_variable_values_arm_goal[4] = 0.0
+        self.execute_arm_cmds()
+
+    def camera_alignment(self):
+        """
+        Orient Camera in order to visualize our environment
+        """
+        self.group_variable_values_arm_goal[0] = 0.0
+        self.group_variable_values_arm_goal[1] = -0.35
+        self.group_variable_values_arm_goal[2] = 0.73
+        self.group_variable_values_arm_goal[3] = 1.91
         self.group_variable_values_arm_goal[4] = 0.0
         self.execute_arm_cmds()
 
@@ -99,8 +110,8 @@ class Pick_Place:
 
 
 if __name__ == "__main__":
-    rospy.init_node("pick_place_node_joint_values", anonymous=True)
-    pick_place_object = Pick_Place()
+    rospy.init_node("pick_joint_cmds_node", anonymous=True)
+    pick_place_object = Joint_Cmds()
     try:
         pick_place_object.main()
     except rospy.ROSInterruptException:

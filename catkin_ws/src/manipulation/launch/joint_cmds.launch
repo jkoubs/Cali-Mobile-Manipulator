@@ -1,7 +1,7 @@
 <launch>
 
     <node pkg ="manipulation"
-        type="pick_joint_cmds.py"
+        type="joint_cmds.py"
         name="grasp_coke_can"
         output="screen">
     </node>
