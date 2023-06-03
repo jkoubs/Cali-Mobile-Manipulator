@@ -23,13 +23,21 @@ class GoToPOI:
         rospy.on_shutdown(self.shutdownhook)
 
     def shutdownhook(self):
-        # works better than the rospy.is_shutdown()
+        """
+        This works better than the rospy.is_shutdown()
+        """
         self.ctrl_c = True
 
     def feedback_callback(self, feedback):
+        """
+        Feedback from Action Server
+        """
         print("[Feedback] Going to Point of Interest...")
 
     def main_callback(self, request):
+        """
+        Navigation Action Server Callback
+        """
         goal = MoveBaseGoal()
 
         if request.label == "approach":
