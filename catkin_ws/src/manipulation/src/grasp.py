@@ -21,12 +21,17 @@ class Grasp:
         self.rate = rospy.Rate(10)
         self.ctrl_c = False
 
-    def publish_once_in_cmd_vel(self):
-        """
-        This is because publishing in topics sometimes fails the first time you publish.
-        In continuous publishing systems, this is no big deal, but in systems that publish only
-        once, it IS very important.
-        """
+    def pose_callback(self, msg):
+        # This is the pose given from the robot_footprint frame to the graspable object
+        self.pose_x_from_cam = msg.position.x
+        self.pose_y_from_cam = msg.position.y
+        self.pose_z_from_cam = msg.position.z
+
+    def _publish_once_in_cmd_vel(self):
+        # This is because publishing in topics sometimes fails the first time you publish.
+        # In continuous publishing systems, this is no big deal, but in systems that publish only
+        # once, it IS very important.
+
         while not self.ctrl_c:
             connections = self.rb1_vel_publisher.get_num_connections()
             if connections > 0:
@@ -36,52 +41,34 @@ class Grasp:
             else:
                 self.rate.sleep()
 
-    def pose_callback(self, msg):
-        # This is the pose given from the robot_footprint frame to the graspable object
-        self.pose_x_from_cam = msg.position.x
-        self.pose_y_from_cam = msg.position.y
-        self.pose_z_from_cam = msg.position.z
-
-    def move_forward(self):
-        """
-        Move robot forward
-        """
+    def _move_forward(self):
         rospy.loginfo("Moving forward..")
         self.cmd.linear.x = 0.01
         self.cmd.angular.z = 0.0
-        self.publish_once_in_cmd_vel()
+        self._publish_once_in_cmd_vel()
 
-    def stop(self):
-        """
-        Stop robot
-        """
+    def _stop(self):
         rospy.loginfo("Stop the robot..")
         self.cmd.linear.x = 0.0
         self.cmd.angular.z = 0.0
-        self.publish_once_in_cmd_vel()
+        self._publish_once_in_cmd_vel()
 
-    def approach(self):
-        """
-        Approach step if the arm is out of reach from the graspable object
-        """
-        self.move_forward()
+    def _approach(self):
+        self._move_forward()
         while not self.pose_x_from_cam < 0.71:
             rospy.loginfo(
                 "APPROACH STEP : The distance to the coke can is: %f"
                 % self.pose_x_from_cam
             )
             self.rate.sleep()
-        self.stop()
+        self._stop()
 
-    def pregrasp(self):
-        """
-        Pregasp
-        """
+    def _pregrasp(self):
         offset_x = -0.04
         offset_y = 0.015
         offset_z = 0.033
 
-        self.approach()
+        self._approach()
         rospy.loginfo("Pregrasp..")
         self.pose_target.position.x = self.pose_x_from_cam + offset_x
         self.pose_target.position.y = self.pose_y_from_cam + offset_y
@@ -106,7 +93,7 @@ class Grasp:
         self.joint_cmds.set_group_config(30, 0.005, 0.05)
         rospy.loginfo("Opening Gripper..")
         self.joint_cmds.open_gripper()
-        pick_place_object.pregrasp()
+        pick_place_object._pregrasp()
         rospy.loginfo("Grasp..")
         self.joint_cmds.grasp()
         rospy.loginfo("Retreating..")

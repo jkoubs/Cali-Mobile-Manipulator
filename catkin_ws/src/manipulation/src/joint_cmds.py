@@ -21,6 +21,9 @@ class JointCommands:
         )
 
     def set_group_config(self, planning_time, position_tol, orientration_tol):
+        """
+        Sets groups configuration for MoveIt
+        """
         self.group_arm.allow_replanning(True)
         self.group_arm.set_planning_time(planning_time)
         self.group_arm.set_goal_position_tolerance(position_tol)
@@ -118,11 +121,6 @@ class JointCommands:
         self.execute_arm_cmds()
 
     def main(self):
-        """
-        Performs the pick mission
-        Consists of picking up the coke can from the table
-        For the entire mission, it uses the joint commands
-        """
         rospy.loginfo(
             "Reference frame to set end effector goal poses is: %s",
             self.group_arm.get_pose_reference_frame(),
