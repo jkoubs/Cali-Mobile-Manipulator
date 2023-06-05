@@ -1,5 +1,4 @@
-# Ground Robot "Cali" (version 2021-22), Robotics Laboratory, California State University, Los Angeles
-
+# Mobile Manipulator <em>Cali</em> 
 # Table of Contents
  - [About](#about)
  - [Packages](#packages)
@@ -283,7 +282,7 @@ We can see that it is now able to grasp the object using our <strong>Perception/
 
 
 ## Fetch-and-Carry Mission
-The goal of this mission is to perform a Fetch-and-Carry task in an indoor environment. It consists of picking a coke can from a room A and dump it into trash can located in room B.
+The goal of this mission is to perform a <strong>Fetch-and-Carry</strong> task in an indoor environment. It consists of picking a coke can from room A and dump it into trash can located in room B.
 
 Close all previous shells:
 
