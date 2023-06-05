@@ -71,6 +71,6 @@ class GoToPOI:
 
 
 if __name__ == "__main__":
-    rospy.init_node("go_to_point_of_interest", anonymous=True)
+    rospy.init_node("go_to_point_of_interest_node", anonymous=True)
     rb1_object = GoToPOI()
     rospy.spin()

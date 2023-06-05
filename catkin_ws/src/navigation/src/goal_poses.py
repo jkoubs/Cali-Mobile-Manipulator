@@ -1,5 +1,4 @@
 #! /usr/bin/env python
-import rospy
 import rosparam
 
 
@@ -25,5 +24,4 @@ class GoalPoses:
 
 
 if __name__ == "__main__":
-    rospy.init_node("goal_poses", anonymous=True)
     rb1_object = GoalPoses()

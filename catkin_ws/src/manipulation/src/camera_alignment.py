@@ -4,25 +4,24 @@ import sys
 import rospy
 import moveit_commander
 
-from joint_cmds import Joint_Cmds
+from joint_cmds import JointCommands
 
 
-class Camera_Alignment:
+class CameraAlignment:
     def __init__(self):
         moveit_commander.roscpp_initialize(sys.argv)
-        self.pick_joint_cmds = Joint_Cmds()
+        self.joint_cmds = JointCommands()
 
     def main(self):
-        rospy.loginfo("Orient Camera towards the table..")
-        self.pick_joint_cmds.camera_alignment()
-
-        rospy.loginfo("Shuting Down ..")
+        rospy.loginfo("Orient the camera to perceive the environment..")
+        self.joint_cmds.camera_alignment()
+        rospy.loginfo("Shutting Down..")
         moveit_commander.roscpp_shutdown()
 
 
 if __name__ == "__main__":
-    rospy.init_node("orient_camera_node", anonymous=True)
-    orient_camera_object = Camera_Alignment()
+    rospy.init_node("camera_alignment_node", anonymous=True)
+    orient_camera_object = CameraAlignment()
     try:
         orient_camera_object.main()
     except rospy.ROSInterruptException:

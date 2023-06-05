@@ -5,7 +5,7 @@ import rospy
 import moveit_commander
 
 
-class Joint_Cmds:
+class JointCommands:
     def __init__(self):
         moveit_commander.roscpp_initialize(sys.argv)
 
@@ -19,6 +19,27 @@ class Joint_Cmds:
         self.group_variable_values_gripper_close = (
             self.group_gripper.get_current_joint_values()
         )
+
+    def set_group_config(self, planning_time, position_tol, orientration_tol):
+        self.group_arm.allow_replanning(True)
+        self.group_arm.set_planning_time(planning_time)
+        self.group_arm.set_goal_position_tolerance(position_tol)
+        self.group_arm.set_goal_orientation_tolerance(orientration_tol)
+
+        print("Reference frame: %s" % self.group_arm.get_planning_frame())
+
+        print("End effector: %s" % self.group_arm.get_end_effector_link())
+
+        print("Robot Groups: %s" % self.robot.get_group_names())
+
+        print("Current Joint Values:")
+        print(self.group_arm.get_current_joint_values())
+
+        print("Current Pose:")
+        print(self.group_arm.get_current_pose())
+
+        print("Robot State:")
+        print(self.robot.get_current_state())
 
     def execute_arm_cmds(self):
         """
@@ -89,25 +110,12 @@ class Joint_Cmds:
         """
         Dump object pose
         """
-        self.pick_joint_cmds.group_variable_values_arm_goal[0] = 0.0
-        self.pick_joint_cmds.group_variable_values_arm_goal[1] = 1.52
-        self.pick_joint_cmds.group_variable_values_arm_goal[2] = 0.0
-        self.pick_joint_cmds.group_variable_values_arm_goal[3] = 0.0
-        self.pick_joint_cmds.group_variable_values_arm_goal[4] = 0.0
+        self.group_variable_values_arm_goal[0] = 0.0
+        self.group_variable_values_arm_goal[1] = 1.52
+        self.group_variable_values_arm_goal[2] = 0.0
+        self.group_variable_values_arm_goal[3] = 0.0
+        self.group_variable_values_arm_goal[4] = 0.0
         self.execute_arm_cmds()
-
-        # self.group_arm.set_joint_value_target(
-        #     self.pick_joint_cmds.group_variable_values_arm_goal
-        # )
-
-        # # self.plan1 = self.group_arm.plan()
-
-        # self.pick_joint_cmds.group_arm.go(wait=True)
-        # rospy.sleep(2)
-
-        # # self.plan2 = self.group_gripper.plan()
-        # self.pick_joint_cmds.group_gripper.go(wait=True)
-        # rospy.sleep(2)
 
     def main(self):
         """
@@ -129,13 +137,13 @@ class Joint_Cmds:
         rospy.loginfo("Retreating..")
         pick_place_object.retreat()
 
-        rospy.loginfo("Shuting Down ..")
+        rospy.loginfo("Shutting Down ..")
         moveit_commander.roscpp_shutdown()
 
 
 if __name__ == "__main__":
-    rospy.init_node("pick_joint_cmds_node", anonymous=True)
-    pick_place_object = Joint_Cmds()
+    rospy.init_node("joint_cmds_node", anonymous=True)
+    pick_place_object = JointCommands()
     try:
         pick_place_object.main()
     except rospy.ROSInterruptException:
