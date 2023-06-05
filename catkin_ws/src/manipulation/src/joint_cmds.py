@@ -121,11 +121,6 @@ class JointCommands:
         self.execute_arm_cmds()
 
     def main(self):
-        rospy.loginfo(
-            "Reference frame to set end effector goal poses is: %s",
-            self.group_arm.get_pose_reference_frame(),
-        )
-
         rospy.loginfo("Open Gripper ..")
         pick_place_object.open_gripper()
         rospy.loginfo("Pregrasp..")

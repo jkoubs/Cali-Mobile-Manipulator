@@ -34,7 +34,7 @@ class PickPerception:
         self.pose_target.orientation.w = 1
 
         rospy.loginfo(
-            "GOAL POSE FROM THE BASE_LINK:\t (x, y, z) = (%.3f, %.3f, %.3f)"
+            "GOAL POSE FROM THE BASE_LINK: (x, y, z) = (%.3f, %.3f, %.3f)"
             % (
                 self.pose_target.position.x,
                 self.pose_target.position.y,
