@@ -21,10 +21,9 @@ class PickPerception:
         self.pose_y_from_cam = msg.position.y
         self.pose_z_from_cam = msg.position.z
 
-    def pregrasp(self):
-        """
-        Pregrasp using manipulation/perception pipeline
-        """
+    def _pregrasp_perception(self):
+        # Pregrasp using manipulation/perception pipeline
+
         offset_x = 0.005
         offset_y = 0.007
         offset_z = 0.035
@@ -34,9 +33,8 @@ class PickPerception:
         self.pose_target.position.z = self.pose_z_from_cam + offset_z
         self.pose_target.orientation.w = 1
 
-        # Print our goal pose
         rospy.loginfo(
-            "GOAL POSE FROM THE BASE_LINK:\t (x, y, z) = (%.3f, %.3f, %.3f)"
+            "GOAL POSE FROM THE BASE_LINK: (x, y, z) = (%.3f, %.3f, %.3f)"
             % (
                 self.pose_target.position.x,
                 self.pose_target.position.y,
@@ -57,7 +55,7 @@ class PickPerception:
         rospy.loginfo("Open Gripper..")
         self.joint_cmds.open_gripper()
         rospy.loginfo("Pregrasp..")
-        pick_place_object.pregrasp()
+        pick_place_object._pregrasp_perception()
         rospy.loginfo("Grasp the object..")
         self.joint_cmds.grasp()
         rospy.loginfo("Retreating..")

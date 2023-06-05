@@ -20,24 +20,15 @@ class GoToPOI:
         self.client.wait_for_server()
         self.goal_poses = GoalPoses()
         self.rate = rospy.Rate(1)
-        rospy.on_shutdown(self.shutdownhook)
+        rospy.on_shutdown(self._shutdownhook)
 
-    def shutdownhook(self):
-        """
-        This works better than the rospy.is_shutdown()
-        """
+    def _shutdownhook(self):
         self.ctrl_c = True
 
-    def feedback_callback(self, feedback):
-        """
-        Feedback from Action Server
-        """
+    def _feedback_callback(self, feedback):
         print("[Feedback] Going to Point of Interest...")
 
     def main_callback(self, request):
-        """
-        Navigation Action Server Callback
-        """
         goal = MoveBaseGoal()
 
         if request.label == "approach_coke_can":
@@ -60,11 +51,10 @@ class GoToPOI:
             goal.target_pose.pose.orientation.z = self.goal_poses.orientation2_z
             goal.target_pose.pose.orientation.w = self.goal_poses.orientation2_w
 
-        self.client.send_goal(goal, feedback_cb=self.feedback_callback)
+        self.client.send_goal(goal, feedback_cb=self._feedback_callback)
         self.client.wait_for_result()
 
         print("[Result] State: %d" % (self.client.get_state()))
-
         response = GoToPoiResponse()
         response.success = "OK, Service Finished correctly"
         return response

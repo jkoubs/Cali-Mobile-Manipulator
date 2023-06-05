@@ -1,5 +1,4 @@
-# Ground Robot "Cali" (version 2021-22), Robotics Laboratory, California State University, Los Angeles
-
+# Mobile Manipulator <em>Cali</em> 
 # Table of Contents
  - [About](#about)
  - [Packages](#packages)
@@ -164,20 +163,20 @@ roslaunch navigation navigation_teb.launch
 
   ```
  rostopic pub /gripper_controller/gripper_cmd/goal control_msgs/GripperCommandActionGoal "header:
-  seq: 0
-  stamp:
-    secs: 0
-    nsecs: 0
-  frame_id: ''
-goal_id:
-  stamp:
-    secs: 0
-    nsecs: 0
-  id: ''
-goal:
-  command:
-    position: 2.0
-    max_effort: 0.0" 
+    seq: 0
+    stamp:
+      secs: 0
+      nsecs: 0
+    frame_id: ''
+  goal_id:
+    stamp:
+      secs: 0
+      nsecs: 0
+    id: ''
+  goal:
+    command:
+      position: 2.0
+      max_effort: 0.0" 
   ```
   Set a position of <em>2.0</em> to open the gripper and <em>0.0</em> to close it.
   
@@ -283,7 +282,7 @@ We can see that it is now able to grasp the object using our <strong>Perception/
 
 
 ## Fetch-and-Carry Mission
-The goal of this mission is to perform a Fetch-and-Carry task in an indoor environment. It consists of picking a coke can from a room A and dump it into trash can located in room B.
+The goal of this mission is to perform a <strong>Fetch-and-Carry</strong> task in an indoor environment. It consists of picking a coke can from room A and dump it into trash can located in room B.
 
 Close all previous shells:
 
