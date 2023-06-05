@@ -5,7 +5,7 @@ import rospy
 import moveit_commander
 
 
-class Pick_Place:
+class JointCommands:
     def __init__(self):
         moveit_commander.roscpp_initialize(sys.argv)
 
@@ -19,6 +19,27 @@ class Pick_Place:
         self.group_variable_values_gripper_close = (
             self.group_gripper.get_current_joint_values()
         )
+
+    def set_group_config(self, planning_time, position_tol, orientration_tol):
+        self.group_arm.allow_replanning(True)
+        self.group_arm.set_planning_time(planning_time)
+        self.group_arm.set_goal_position_tolerance(position_tol)
+        self.group_arm.set_goal_orientation_tolerance(orientration_tol)
+
+        print("Reference frame: %s" % self.group_arm.get_planning_frame())
+
+        print("End effector: %s" % self.group_arm.get_end_effector_link())
+
+        print("Robot Groups: %s" % self.robot.get_group_names())
+
+        print("Current Joint Values:")
+        print(self.group_arm.get_current_joint_values())
+
+        print("Current Pose:")
+        print(self.group_arm.get_current_pose())
+
+        print("Robot State:")
+        print(self.robot.get_current_state())
 
     def execute_arm_cmds(self):
         """
@@ -40,14 +61,14 @@ class Pick_Place:
 
     def open_gripper(self):
         """
-        Step 1: Open the Gripper
+        Open the Gripper
         """
         self.group_variable_values_gripper_close[0] = 1.57
         self.execute_gripper_cmds()
 
     def pregrasp(self):
         """
-        Step 2: Pregrasp
+        Pregrasp
         """
         self.group_variable_values_arm_goal[0] = 0.15
         self.group_variable_values_arm_goal[1] = 0.23
@@ -58,19 +79,41 @@ class Pick_Place:
 
     def grasp(self):
         """
-        Step 3: Grasp
+        Grasp
         """
         self.group_variable_values_gripper_close[0] = 0.60
         self.execute_gripper_cmds()
 
     def retreat(self):
         """
-        Step 4: Retreat
+        Retreat
         """
         self.group_variable_values_arm_goal[0] = 0.0
         self.group_variable_values_arm_goal[1] = 0.45
         self.group_variable_values_arm_goal[2] = -0.82
         self.group_variable_values_arm_goal[3] = 1.95
+        self.group_variable_values_arm_goal[4] = 0.0
+        self.execute_arm_cmds()
+
+    def camera_alignment(self):
+        """
+        Orient Camera in order to visualize our environment
+        """
+        self.group_variable_values_arm_goal[0] = 0.0
+        self.group_variable_values_arm_goal[1] = -0.35
+        self.group_variable_values_arm_goal[2] = 0.73
+        self.group_variable_values_arm_goal[3] = 1.91
+        self.group_variable_values_arm_goal[4] = 0.0
+        self.execute_arm_cmds()
+
+    def dump_object(self):
+        """
+        Dump object pose
+        """
+        self.group_variable_values_arm_goal[0] = 0.0
+        self.group_variable_values_arm_goal[1] = 1.52
+        self.group_variable_values_arm_goal[2] = 0.0
+        self.group_variable_values_arm_goal[3] = 0.0
         self.group_variable_values_arm_goal[4] = 0.0
         self.execute_arm_cmds()
 
@@ -94,13 +137,13 @@ class Pick_Place:
         rospy.loginfo("Retreating..")
         pick_place_object.retreat()
 
-        rospy.loginfo("Shuting Down ..")
+        rospy.loginfo("Shutting Down ..")
         moveit_commander.roscpp_shutdown()
 
 
 if __name__ == "__main__":
-    rospy.init_node("pick_place_node_joint_values", anonymous=True)
-    pick_place_object = Pick_Place()
+    rospy.init_node("joint_cmds_node", anonymous=True)
+    pick_place_object = JointCommands()
     try:
         pick_place_object.main()
     except rospy.ROSInterruptException:

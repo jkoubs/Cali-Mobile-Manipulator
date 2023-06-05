@@ -206,7 +206,7 @@ goal:
 
   In a <strong>third</strong> terminal (<em>shell#3</em>):
   ```bash
-  roslaunch manipulation pick_joint_cmds.launch
+  roslaunch manipulation joint_cmds.launch
   ```
   ![grasp_coke_can](doc/grasp_coke_can.gif)
 
